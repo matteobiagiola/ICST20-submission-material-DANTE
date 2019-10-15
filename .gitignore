@@ -17,4 +17,25 @@ VAR.tsv
 *.png
 *.js
 *.js.map
-network-logs
+network-logs# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Maven
+*.log
+target/
+release.properties
+pom.xml.releaseBackup
+git.properties
+output/
+out/
+
+# Mac
+.DS_Store

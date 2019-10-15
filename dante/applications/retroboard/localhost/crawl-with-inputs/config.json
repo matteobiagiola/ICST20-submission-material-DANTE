@@ -1,0 +1,634 @@
+{
+  "url" : "http://localhost:4000",
+  "basicAuthUrl" : null,
+  "browserConfig" : {
+    "browserType" : "CHROME",
+    "numberOfBrowsers" : 1,
+    "browserBuilder" : { },
+    "remoteHubUrl" : null,
+    "browserOptions" : {
+      "headless" : false,
+      "pixelDensity" : 2
+    },
+    "defaultBuilder" : true,
+    "langOrNull" : null
+  },
+  "plugins" : [ "CrawlOverview", "TestSuiteGenerator" ],
+  "proxyConfiguration" : {
+    "port" : -1,
+    "hostname" : "none",
+    "type" : "NOTHING"
+  },
+  "crawlRules" : {
+    "crawlEvents" : [ "click" ],
+    "invariants" : [ ],
+    "oracleComparators" : [ {
+      "preConditions" : [ ],
+      "id" : "SimpleComparator",
+      "oracle" : { }
+    } ],
+    "ignoredFrameIdentifiers" : [ ],
+    "preCrawlConfig" : {
+      "waitConditions" : [ ],
+      "crawlConditions" : [ ],
+      "includedElements" : [ {
+        "tagName" : "A",
+        "id" : "id234698513",
+        "eventType" : "click",
+        "eventableCondition" : null,
+        "withXpathExpression" : null
+      }, {
+        "tagName" : "BUTTON",
+        "id" : "id1121172875",
+        "eventType" : "click",
+        "eventableCondition" : null,
+        "withXpathExpression" : null
+      }, {
+        "tagName" : "INPUT",
+        "id" : "id649734728",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id649734728",
+          "conditions" : [ ],
+          "inXPath" : "//INPUT[@type='submit']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//INPUT[@type='submit']"
+      }, {
+        "tagName" : "INPUT",
+        "id" : "id1595953398",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id1595953398",
+          "conditions" : [ ],
+          "inXPath" : "//INPUT[@type='button']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//INPUT[@type='button']"
+      }, {
+        "tagName" : "A",
+        "id" : "id64830413",
+        "eventType" : "click",
+        "eventableCondition" : null,
+        "withXpathExpression" : null
+      }, {
+        "tagName" : "BUTTON",
+        "id" : "id159259014",
+        "eventType" : "click",
+        "eventableCondition" : null,
+        "withXpathExpression" : null
+      }, {
+        "tagName" : "LABEL",
+        "id" : "id653687670",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id653687670",
+          "conditions" : [ ],
+          "inXPath" : "//LABEL[text()='Create']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//LABEL[text()='Create']"
+      }, {
+        "tagName" : "LABEL",
+        "id" : "id356473385",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id356473385",
+          "conditions" : [ ],
+          "inXPath" : "//LABEL[text()='Previous']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//LABEL[text()='Previous']"
+      }, {
+        "tagName" : "LABEL",
+        "id" : "id2136344592",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id2136344592",
+          "conditions" : [ ],
+          "inXPath" : "//LABEL[text()='Advanced']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//LABEL[text()='Advanced']"
+      }, {
+        "tagName" : "DIV",
+        "id" : "id110992469",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id110992469",
+          "conditions" : [ ],
+          "inXPath" : "//DIV[@class='theme__templateValue___3if5o theme__value___mflIw']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//DIV[@class='theme__templateValue___3if5o theme__value___mflIw']"
+      }, {
+        "tagName" : "SPAN",
+        "id" : "id329611835",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id329611835",
+          "conditions" : [ ],
+          "inXPath" : "//SPAN[@class='SessionName__name___3g4PI']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//SPAN[@class='SessionName__name___3g4PI']"
+      }, {
+        "tagName" : "SPAN",
+        "id" : "id2091156596",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id2091156596",
+          "conditions" : [ ],
+          "inXPath" : "//SPAN[@class='theme__off___Ih3qa']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//SPAN[@class='theme__off___Ih3qa']"
+      }, {
+        "tagName" : "SPAN",
+        "id" : "id863831416",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id863831416",
+          "conditions" : [ ],
+          "inXPath" : "//SPAN[@class='theme__item___QgVrb theme__selectable___pSlvM']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//SPAN[@class='theme__item___QgVrb theme__selectable___pSlvM']"
+      } ],
+      "excludedElements" : [ {
+        "tagName" : "A",
+        "id" : "id1508395126",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id1508395126",
+          "conditions" : [ ],
+          "inXPath" : "//A[@href='https://github.com/ANTOINEJAUSSOIN/retro-board']",
+          "linkedInputFields" : [ ]
+        },
+        "withXpathExpression" : "//A[@href='https://github.com/antoinejaussoin/retro-board']"
+      } ],
+      "filterAttributeNames" : [ "closure_hashcode_(\\w)*", "jquery[0-9]+" ]
+    },
+    "formFillMode" : "RANDOM",
+    "inputSpecification" : {
+      "formInputs" : {
+        "xpath /HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]" : {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "All the rest",
+            "checked" : true
+          }, {
+            "value" : "Work",
+            "checked" : true
+          } ],
+          "eventable" : null
+        },
+        "xpath /HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]" : {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "admin",
+            "checked" : true
+          }, {
+            "value" : "user",
+            "checked" : true
+          } ],
+          "eventable" : null
+        },
+        "xpath /HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[3]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]" : {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[3]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[3]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "Brilliant idea",
+            "checked" : true
+          }, {
+            "value" : "Work remotely",
+            "checked" : true
+          } ],
+          "eventable" : null
+        },
+        "xpath /HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]" : {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "Social life",
+            "checked" : true
+          }, {
+            "value" : "Time off",
+            "checked" : true
+          } ],
+          "eventable" : null
+        }
+      },
+      "forms" : [ {
+        "formInputs" : [ {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "admin",
+            "checked" : true
+          }, {
+            "value" : "user",
+            "checked" : true
+          } ],
+          "eventable" : null
+        } ]
+      } ],
+      "crawlElements" : [ {
+        "tagName" : "BUTTON",
+        "id" : "id1778535015",
+        "eventType" : "click",
+        "eventableCondition" : {
+          "id" : "id1778535015",
+          "conditions" : [ ],
+          "inXPath" : "//BUTTON[text()=concat('\"Let',\"'\",'s start\"')]",
+          "linkedInputFields" : [ {
+            "type" : "INPUT",
+            "identification" : {
+              "how" : "xpath",
+              "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+              "webDriverBy" : { },
+              "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+            },
+            "inputValues" : [ {
+              "value" : "admin",
+              "checked" : true
+            }, {
+              "value" : "user",
+              "checked" : true
+            } ],
+            "eventable" : null
+          }, {
+            "type" : "INPUT",
+            "identification" : {
+              "how" : "xpath",
+              "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+              "webDriverBy" : { },
+              "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+            },
+            "inputValues" : [ {
+              "value" : "admin",
+              "checked" : true
+            }, {
+              "value" : "user",
+              "checked" : true
+            } ],
+            "eventable" : null
+          }, {
+            "type" : "INPUT",
+            "identification" : {
+              "how" : "xpath",
+              "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+              "webDriverBy" : { },
+              "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+            },
+            "inputValues" : [ {
+              "value" : "admin",
+              "checked" : true
+            }, {
+              "value" : "user",
+              "checked" : true
+            } ],
+            "eventable" : null
+          }, {
+            "type" : "INPUT",
+            "identification" : {
+              "how" : "xpath",
+              "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+              "webDriverBy" : { },
+              "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+            },
+            "inputValues" : [ {
+              "value" : "admin",
+              "checked" : true
+            }, {
+              "value" : "user",
+              "checked" : true
+            } ],
+            "eventable" : null
+          }, {
+            "type" : "INPUT",
+            "identification" : {
+              "how" : "xpath",
+              "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+              "webDriverBy" : { },
+              "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+            },
+            "inputValues" : [ {
+              "value" : "admin",
+              "checked" : true
+            }, {
+              "value" : "user",
+              "checked" : true
+            } ],
+            "eventable" : null
+          } ]
+        },
+        "withXpathExpression" : "//BUTTON[text()=concat('\"Let',\"'\",'s start\"')]"
+      } ]
+    },
+    "testInvariantsWhileCrawling" : true,
+    "clickOnce" : true,
+    "randomizeCandidateElements" : false,
+    "crawlHiddenAnchors" : false,
+    "waitAfterReloadUrl" : 1000,
+    "waitAfterEvent" : 1000,
+    "disableIdIdentification" : false,
+    "inputFieldIdsWithEnterClick" : [ {
+      "how" : "xpath",
+      "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]",
+      "webDriverBy" : { },
+      "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]\")"
+    }, {
+      "how" : "xpath",
+      "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[3]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]",
+      "webDriverBy" : { },
+      "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[3]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]\")"
+    }, {
+      "how" : "xpath",
+      "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]",
+      "webDriverBy" : { },
+      "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]\")"
+    } ],
+    "crawlPriorityMode" : "NORMAL",
+    "crawlNearDuplicates" : true,
+    "delayNearDuplicateCrawling" : true,
+    "allCrawlElements" : [ {
+      "tagName" : "A",
+      "id" : "id234698513",
+      "eventType" : "click",
+      "eventableCondition" : null,
+      "withXpathExpression" : null
+    }, {
+      "tagName" : "BUTTON",
+      "id" : "id1121172875",
+      "eventType" : "click",
+      "eventableCondition" : null,
+      "withXpathExpression" : null
+    }, {
+      "tagName" : "INPUT",
+      "id" : "id649734728",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id649734728",
+        "conditions" : [ ],
+        "inXPath" : "//INPUT[@type='submit']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//INPUT[@type='submit']"
+    }, {
+      "tagName" : "INPUT",
+      "id" : "id1595953398",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id1595953398",
+        "conditions" : [ ],
+        "inXPath" : "//INPUT[@type='button']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//INPUT[@type='button']"
+    }, {
+      "tagName" : "A",
+      "id" : "id64830413",
+      "eventType" : "click",
+      "eventableCondition" : null,
+      "withXpathExpression" : null
+    }, {
+      "tagName" : "BUTTON",
+      "id" : "id159259014",
+      "eventType" : "click",
+      "eventableCondition" : null,
+      "withXpathExpression" : null
+    }, {
+      "tagName" : "LABEL",
+      "id" : "id653687670",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id653687670",
+        "conditions" : [ ],
+        "inXPath" : "//LABEL[text()='Create']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//LABEL[text()='Create']"
+    }, {
+      "tagName" : "LABEL",
+      "id" : "id356473385",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id356473385",
+        "conditions" : [ ],
+        "inXPath" : "//LABEL[text()='Previous']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//LABEL[text()='Previous']"
+    }, {
+      "tagName" : "LABEL",
+      "id" : "id2136344592",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id2136344592",
+        "conditions" : [ ],
+        "inXPath" : "//LABEL[text()='Advanced']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//LABEL[text()='Advanced']"
+    }, {
+      "tagName" : "DIV",
+      "id" : "id110992469",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id110992469",
+        "conditions" : [ ],
+        "inXPath" : "//DIV[@class='theme__templateValue___3if5o theme__value___mflIw']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//DIV[@class='theme__templateValue___3if5o theme__value___mflIw']"
+    }, {
+      "tagName" : "SPAN",
+      "id" : "id329611835",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id329611835",
+        "conditions" : [ ],
+        "inXPath" : "//SPAN[@class='SessionName__name___3g4PI']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//SPAN[@class='SessionName__name___3g4PI']"
+    }, {
+      "tagName" : "SPAN",
+      "id" : "id2091156596",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id2091156596",
+        "conditions" : [ ],
+        "inXPath" : "//SPAN[@class='theme__off___Ih3qa']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//SPAN[@class='theme__off___Ih3qa']"
+    }, {
+      "tagName" : "SPAN",
+      "id" : "id863831416",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id863831416",
+        "conditions" : [ ],
+        "inXPath" : "//SPAN[@class='theme__item___QgVrb theme__selectable___pSlvM']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//SPAN[@class='theme__item___QgVrb theme__selectable___pSlvM']"
+    }, {
+      "tagName" : "A",
+      "id" : "id1508395126",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id1508395126",
+        "conditions" : [ ],
+        "inXPath" : "//A[@href='https://github.com/ANTOINEJAUSSOIN/retro-board']",
+        "linkedInputFields" : [ ]
+      },
+      "withXpathExpression" : "//A[@href='https://github.com/antoinejaussoin/retro-board']"
+    }, {
+      "tagName" : "BUTTON",
+      "id" : "id1778535015",
+      "eventType" : "click",
+      "eventableCondition" : {
+        "id" : "id1778535015",
+        "conditions" : [ ],
+        "inXPath" : "//BUTTON[text()=concat('\"Let',\"'\",'s start\"')]",
+        "linkedInputFields" : [ {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "admin",
+            "checked" : true
+          }, {
+            "value" : "user",
+            "checked" : true
+          } ],
+          "eventable" : null
+        }, {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "admin",
+            "checked" : true
+          }, {
+            "value" : "user",
+            "checked" : true
+          } ],
+          "eventable" : null
+        }, {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "admin",
+            "checked" : true
+          }, {
+            "value" : "user",
+            "checked" : true
+          } ],
+          "eventable" : null
+        }, {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "admin",
+            "checked" : true
+          }, {
+            "value" : "user",
+            "checked" : true
+          } ],
+          "eventable" : null
+        }, {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "admin",
+            "checked" : true
+          }, {
+            "value" : "user",
+            "checked" : true
+          } ],
+          "eventable" : null
+        }, {
+          "type" : "INPUT",
+          "identification" : {
+            "how" : "xpath",
+            "value" : "/HTML[1]/BODY[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]",
+            "webDriverBy" : { },
+            "webDriverByString" : "By.xpath(\"/HTML[1]/BODY/DIV[1]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/INPUT[1]\")"
+          },
+          "inputValues" : [ {
+            "value" : "admin",
+            "checked" : true
+          }, {
+            "value" : "user",
+            "checked" : true
+          } ],
+          "eventable" : null
+        } ]
+      },
+      "withXpathExpression" : "//BUTTON[text()=concat('\"Let',\"'\",'s start\"')]"
+    } ]
+  },
+  "maximumStates" : 0,
+  "maximumRuntime" : 1200000,
+  "maximumDepth" : 0,
+  "considerCandidateElementsOnce" : "fired",
+  "crawlPathSeparator" : "-----",
+  "handleSameFormInputsOncePerState" : true,
+  "stateVertexFactory" : null,
+  "siteDir" : "/Users/matteobiagiola/workspace/dante/applications/retroboard/localhost",
+  "outputDir" : "/Users/matteobiagiola/workspace/dante/applications/retroboard/localhost/crawl0"
+}

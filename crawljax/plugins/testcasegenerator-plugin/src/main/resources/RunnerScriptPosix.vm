@@ -1,0 +1,7 @@
+#!/bin/bash
+BASEDIR=$(dirname "$0")
+echo "Compiling generated tests source files..."
+cp="$BASEDIR/${libsClassPath}/*"
+javac -cp $cp:../../../plugins/testcasegenerator-plugin/target/classes/ "$BASEDIR/${generatedTestsJavaFilePath}"
+echo "Running generated tests..."
+java -cp $cp:../../../plugins/testcasegenerator-plugin/target/classes/:"$BASEDIR/${generatedTestsSourceFolder}" org.testng.TestNG ${testngXMLFile}
