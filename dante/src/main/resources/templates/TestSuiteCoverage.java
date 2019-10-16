@@ -38,7 +38,9 @@ public class {{test_suite_name}} {
 
     @Before
     public void setUp() throws Exception {
-        driver.get(Properties.app_url);
+        {% if application_name != "ecommerce" %}
+            driver.get(Properties.app_url);
+        {% endif %}
         Thread.sleep({{wait_time_after_reload}});
     }
 
@@ -46,8 +48,10 @@ public class {{test_suite_name}} {
     @Test
     public void {{test_name}}() throws Exception {
         codeCoverage.setTestCaseNameBeingExecuted("{{test_name}}");
-        driver.get(Properties.app_url);
-        Thread.sleep({{wait_time_after_reload}});
+        {% if application_name != "ecommerce" %}
+            driver.get(Properties.app_url);
+            Thread.sleep({{wait_time_after_reload}});
+        {% endif %}
         {% for statement in map_statements.get(test_name) %}
             {{statement}}
 

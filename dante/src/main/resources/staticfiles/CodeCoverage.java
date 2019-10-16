@@ -11,7 +11,16 @@ import utils.SessionProvider;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class CodeCoverage {
@@ -123,10 +132,8 @@ public class CodeCoverage {
 //            }
 
                 try {
-                    String srcName = coverage.getUrl().replace("http://localhost","")
-                            .replace("/","-").replace(":", "");
                     scriptSource = SessionProvider.getInstance()
-                            .getResourceFromApp(new URL(coverage.getUrl()), srcName);
+                            .getResourceFromApp(new URL(coverage.getUrl()));
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
@@ -214,7 +221,8 @@ public class CodeCoverage {
             }
         }
 
-        FileUtils.writeFile(new CoverageReport(percentageCoveredOfEachScript, executionTime).toString(),
+        FileUtils.writeFile(new CoverageReport(SessionProvider.getInstance().getAllScriptURLs(),
+                        percentageCoveredOfEachScript, executionTime).toString(),
                 testCoverageReport.getAbsolutePath());
 
     }

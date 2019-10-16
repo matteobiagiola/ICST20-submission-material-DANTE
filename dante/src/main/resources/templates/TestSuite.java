@@ -30,7 +30,9 @@ public class {{test_suite_name}} {
 
     @Before
     public void setUp() throws Exception {
-        driver.get(Properties.app_url);
+        {% if application_name != "ecommerce" %}
+            driver.get(Properties.app_url);
+        {% endif %}
         Thread.sleep({{wait_time_after_reload}});
     }
 

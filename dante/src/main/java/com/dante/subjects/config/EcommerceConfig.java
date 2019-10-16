@@ -15,7 +15,7 @@ import java.util.List;
 public class EcommerceConfig extends Config {
 
     private static final String url = "http://localhost:3000";
-    private static final int waitTimeAfterReload = 1000;
+    private static final int waitTimeAfterReload = 250;
 
     public EcommerceConfig() {
         super(ApplicationNames.Name.ECOMMERCE.getName());
@@ -25,7 +25,7 @@ public class EcommerceConfig extends Config {
     public CrawljaxConfiguration.CrawljaxConfigurationBuilder getCrawljaxConfig() {
 
         CrawljaxConfiguration.CrawljaxConfigurationBuilder builder = this.crawljaxCommonConfig(url,
-                Properties.MAX_RUNTIME, 200, waitTimeAfterReload);
+                Properties.MAX_RUNTIME, 100, waitTimeAfterReload);
 
         builder.crawlRules().click("SPAN");
         builder.crawlRules().click("BUTTON");
@@ -50,8 +50,9 @@ public class EcommerceConfig extends Config {
         List<List<Integer>> lineRanges = new ArrayList<>();
         lineRanges.add(Arrays.asList(1, 942));
         suiteGeneratorConfig.setScriptNamesToExclude(new ArrayList<>());
-        suiteGeneratorConfig.setScriptNameToInclude("bundle-595c0c4c0c");
+        suiteGeneratorConfig.setScriptNameToInclude("bundle-23e53e4471");
         suiteGeneratorConfig.setLineRanges(lineRanges);
+        suiteGeneratorConfig.setFiredElementStrategy(true);
 
         return suiteGeneratorConfig;
     }

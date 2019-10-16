@@ -158,13 +158,13 @@ public class JavaProjectGenerator {
         TemplateEngine templateEngine = new PebbleTemplateEngine(context);
         templateEngine.render("compile-and-run.sh",
                 new File(this.testSuiteProjectDirPath + File.separator
-                        + "compile-and-run-" + (Properties.FIRED_ELEMENT_STRATEGY ? "fired" : "checked") + ".sh"));
+                        + "compile-and-run-" + (suiteGeneratorConfig.isFiredElementStrategy() ? "fired" : "checked") + ".sh"));
         context.clear();
         context.put("test_suite_qualified_name", this.testsPackageName + "." + this.testSuiteName);
         templateEngine = new PebbleTemplateEngine(context);
         templateEngine.render("run-flakiness.sh",
                 new File(this.testSuiteProjectDirPath + File.separator
-                        + "run-flakiness-" + (Properties.FIRED_ELEMENT_STRATEGY ? "fired" : "checked") + ".sh"));
+                        + "run-flakiness-" + (suiteGeneratorConfig.isFiredElementStrategy() ? "fired" : "checked") + ".sh"));
     }
 
     private void fillResourcesDir() {
@@ -264,6 +264,7 @@ public class JavaProjectGenerator {
         context.put("test_names", testNames);
         context.put("map_statements", mapStatements);
         context.put("wait_time_after_reload", suiteGeneratorConfig.getWaitTimeAfterReload());
+        context.put("application_name", suiteGeneratorConfig.getApplicationName());
 
         TemplateEngine templateEngine = new PebbleTemplateEngine(context);
         templateEngine.render("TestSuite.java",

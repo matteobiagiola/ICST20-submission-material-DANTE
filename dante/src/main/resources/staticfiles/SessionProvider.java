@@ -18,12 +18,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SessionProvider {
 
     private Map<String, String> mapNameSource = new HashMap<>();
+    private Set<String> allScriptURLs = new HashSet<>();
 
     private static utils.SessionProvider ourInstance = new utils.SessionProvider();
 
@@ -72,7 +75,9 @@ public class SessionProvider {
         return ourInstance;
     }
 
-    public String getResourceFromApp(URL url, String resourceName) {
+    public String getResourceFromApp(URL url) {
+        String resourceName = url.toString().replace("http://localhost","")
+                .replace("/","-").replace(":", "");
         if(this.mapNameSource.get(resourceName) != null) {
             return this.mapNameSource.get(resourceName);
         }
@@ -83,11 +88,16 @@ public class SessionProvider {
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String scriptSource = reader.lines().collect(Collectors.joining("\n"));
             this.mapNameSource.put(resourceName, scriptSource);
+            allScriptURLs.add(url.toString());
             FileUtils.writeFile(scriptSource, Properties.user_dir
                     + "/src/main/resources/scripts/" + resourceName);
             return scriptSource;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Set<String> getAllScriptURLs() {
+        return allScriptURLs;
     }
 }

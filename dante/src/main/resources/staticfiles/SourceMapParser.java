@@ -7,7 +7,12 @@ import utils.SessionProvider;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class SourceMapParser {
 
@@ -18,8 +23,7 @@ public class SourceMapParser {
     public SourceMapParser() {
         String sourcemapURL = Properties.getInstance().getProperty("sourcemap_url");
         try {
-            String sourceMapString = SessionProvider.getInstance().getResourceFromApp(new URL(sourcemapURL),
-                    "sourcemap.js.map");
+            String sourceMapString = SessionProvider.getInstance().getResourceFromApp(new URL(sourcemapURL));
             this.sourceMap = new SourceMapImpl(sourceMapString);
 
             String sourceMapUrl = Properties.getInstance().getProperty("sourcemap_url");
@@ -29,7 +33,7 @@ public class SourceMapParser {
                 throw new IllegalArgumentException("Don't known which src files to consider during code coverage when" +
                         " parsing the sourcemap file " + sourceMapUrl);
             String[] srcCodeFilesToExclude = Properties.getInstance().getProperty("src_code_files_to_exclude").split(":");
-            this.srcFilesToExcludeCodeCoverage = new ArrayList<>(Arrays.asList(srcCodeFilesToExclude));
+            this.srcFilesToExcludeCodeCoverage = Arrays.asList(srcCodeFilesToExclude);
             if(this.srcFilesToExcludeCodeCoverage.size() == 1 && this.srcFilesToExcludeCodeCoverage.get(0).isEmpty()) {
                 this.srcFilesToExcludeCodeCoverage.remove(0);
             }
