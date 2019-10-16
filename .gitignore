@@ -5,7 +5,8 @@ target/
 .DS_Store
 .idea
 *.iml
-src/main/resources/app.properties
+app.properties
+app.copy.properties
 log4j.properties
 applications/*/localhost/crawl*
 dependency-graph-*.txt

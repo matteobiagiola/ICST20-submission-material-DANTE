@@ -422,6 +422,8 @@ public class CrawljaxConfiguration {
 
 	public String getCrawlPathSeparator() { return crawlPathSeparator; }
 
+	public String getSeleniumActionsFileName() { return seleniumActionsFileName; }
+
 	public boolean isHandleSameFormInputsOncePerState() { return handleSameFormInputsOncePerState; }
 
 	@Override

@@ -15,9 +15,11 @@ import com.crawljax.forms.FormHandler;
 import com.crawljax.forms.FormInput;
 import com.crawljax.oraclecomparator.StateComparator;
 import com.crawljax.util.ElementResolver;
+import com.crawljax.util.FSUtils;
 import com.crawljax.util.UrlUtils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.slf4j.Logger;
@@ -58,6 +60,8 @@ public class Crawler {
 	private final StateVertexFactory vertexFactory;
 	public static File outputDir;
 
+	private String applicationName = "";
+
 	private final boolean handleSameFormInputsOncePerState;
 
 	private CrawlPath crawlpath;
@@ -82,11 +86,20 @@ public class Crawler {
 		this.plugins = plugins;
 		this.crawlRules = config.getCrawlRules();
 		this.maxDepth = config.getMaximumDepth();
+
 		this.stateComparator = stateComparator;
 		this.candidateActionCache = candidateActionCache;
 		this.waitConditionChecker = waitConditionChecker;
 		this.candidateExtractor = elementExtractor.newExtractor(browser);
 		outputDir = config.getOutputDir();
+		String seleniumActionsFileName = config.getSeleniumActionsFileName();
+		String[] split = seleniumActionsFileName.split("-");
+		if(split.length != 4) {
+			System.out.println("WARN: selenium actions file name (" + seleniumActionsFileName
+					+ ") does not comply with the dash format");
+		} else {
+			this.applicationName = split[2];
+		}
 
 		this.crawlPathSeparator = config.getCrawlPathSeparator();
 		this.handleSameFormInputsOncePerState = config.isHandleSameFormInputsOncePerState();
@@ -140,6 +153,37 @@ public class Crawler {
 		crawlDepth.set(0);
 	}
 
+	/**
+	 * @implNote for the ecommerce example since the products in the cart are not in a persistent state
+	 * if we refresh the browser we lose all the products in the cart. Instead of refreshing, in order to maintain
+	 * those products in the cart to cover more functionalities (e.g. checkout), we can click on the home page button
+	 * which is present in every web page of the application
+	 * */
+	public void resetEcommerce() {
+		CrawlSession session = context.getSession();
+		if (crawlpath != null) {
+			browser.crawlPathEnd(this.crawlPathSeparator);
+			session.addCrawlPath(crawlpath);
+		}
+		List<StateVertex> onURLSetTemp = new ArrayList<>();
+		if (stateMachine != null)
+			onURLSetTemp = stateMachine.getOnURLSet();
+		stateMachine = new StateMachine(graphProvider.get(), crawlRules.getInvariants(), plugins,
+				stateComparator, onURLSetTemp);
+		context.setStateMachine(stateMachine);
+		crawlpath = new CrawlPath();
+		context.setCrawlPath(crawlpath);
+		browser.handlePopups();
+		System.out.println("Reset ecommerce by clicking on the home page button");
+		browser.getWebDriver().findElement(By.xpath("//a[@id=\"home\"]")).click();
+		FSUtils.writeLineOnFile("driver.findElement(By.xpath(\"//a[@id=\"home\"]\")).click();");
+		FSUtils.writeLineOnFile("Thread.sleep(" + this.crawlRules.getWaitAfterEvent() + ");");
+		// Checks the landing page for URL and sets the current page accordingly
+		checkOnURLState();
+		plugins.runOnUrlLoadPlugins(context);
+		crawlDepth.set(0);
+	}
+
 	private void checkOnURLState() {
 		StateVertex newState = stateMachine.newStateFor(browser);
 		StateVertex clone = stateMachine.getStateFlowGraph().putIfAbsent(newState);
@@ -168,7 +212,11 @@ public class Crawler {
 	public void execute(StateVertex crawlTask) {
 		LOG.debug("Resetting the crawler and going to state {}", crawlTask.getName());
 		System.out.println("Resetting the crawler and going to state " + crawlTask.getName());
-		reset();
+		if(this.applicationName.equalsIgnoreCase("ecommerce")) {
+			resetEcommerce();
+		} else {
+			reset();
+		}
 
 		try {
 			// follow(CrawlPath.copyOf(eventables), crawlTask);
@@ -218,7 +266,12 @@ public class Crawler {
 				System.out.println("Not a valid path anymore" + stateMachine.getCurrentState().getName()
 						+ " : " + crawlTask.getName());
 				crawlpath = null;
-				reset();
+				if(this.applicationName.equalsIgnoreCase("ecommerce")) {
+					resetEcommerce();
+				} else {
+					reset();
+				}
+//				reset();
 			}
 		}
 
@@ -256,8 +309,15 @@ public class Crawler {
 				} catch (Exception Ex) {
 					LOG.info("Not a valid path anymore" + onURL.getName() + " : "
 							+ crawlTask.getName());
+					System.out.println("Not a valid path anymore " + onURL.getName() + ": "
+							+ crawlTask.getName());
 					crawlpath = null;
-					reset();
+					if(this.applicationName.equalsIgnoreCase("ecommerce")) {
+						resetEcommerce();
+					} else {
+						reset();
+					}
+//					reset();
 				}
 			}
 		}
@@ -503,9 +563,6 @@ public class Crawler {
 			System.out.println("Found an invisible link with href=" + href);
 			URI url = UrlUtils.extractNewUrl(browser.getCurrentUrl(), href);
 			browser.goToUrl(url);
-//			FSUtils.writeLineOnFile("driver.navigate().to(\"" + url.toString() + "\");");
-//			FSUtils.writeLineOnFile("Thread.sleep("
-//					+  this.context.getConfig().getCrawlRules().getWaitAfterReloadUrl() + ");");
 			return true;
 		}
 		return false;
@@ -724,7 +781,12 @@ public class Crawler {
 		CrawlPath currentPath = crawlpath.immutableCopy();
 		crawlpath = null;
 		StateVertex current = stateMachine.getCurrentState();
-		reset();
+		if(this.applicationName.equalsIgnoreCase("ecommerce")) {
+			resetEcommerce();
+		} else {
+			reset();
+		}
+//		reset();
 		// Could change landing page here. Tests fail because of this. 
 		CrawlPath shortestPath = new CrawlPath(shortestPathTo(current));
 		if (!currentPath.get(0).getSourceStateVertex()

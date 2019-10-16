@@ -1,6 +1,7 @@
 package com.dante.subjects.config;
 
 import com.crawljax.core.configuration.CrawljaxConfiguration;
+import com.crawljax.stateabstractions.visual.imagehashes.DHashStateVertexFactory;
 import com.dante.subjects.ApplicationNames;
 import com.dante.subjects.Config;
 import com.dante.suitegenerator.SuiteGeneratorConfig;

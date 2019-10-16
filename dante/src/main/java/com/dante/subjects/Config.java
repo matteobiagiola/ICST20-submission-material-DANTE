@@ -116,10 +116,10 @@ public abstract class Config {
         builder.setMaximumRunTime(maxRuntimeMin, TimeUnit.MINUTES);
         builder.setUnlimitedStates();
 
-//        CrawljaxConfiguration.CandidateElementsMode candidateElementsMode = Properties.FIRED_ELEMENT_STRATEGY ?
-//                CrawljaxConfiguration.CandidateElementsMode.fired :
-//                CrawljaxConfiguration.CandidateElementsMode.checked;
-//        builder.setConsiderCandidateElementsOnce(candidateElementsMode);
+        CrawljaxConfiguration.CandidateElementsMode candidateElementsMode = Properties.FIRED_ELEMENT_STRATEGY ?
+                CrawljaxConfiguration.CandidateElementsMode.fired :
+                CrawljaxConfiguration.CandidateElementsMode.checked;
+        builder.setConsiderCandidateElementsOnce(candidateElementsMode);
 
         File seleniumActionsDir = new File(this.seleniumActionsDirFilePath);
         FileUtils.createDirIfDoesNotExist(seleniumActionsDir);

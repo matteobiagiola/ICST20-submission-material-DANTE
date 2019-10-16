@@ -96,7 +96,7 @@ function setApplicationRelatedVariables(){
 
 #----------------------------------------------------------------------------------------------------------------------
 
-if test $# -lt 2 ; then echo 'ARGS: application_name (petclinic|splittypie|retroboard|phoenix|dimeshift) crawljax_element_strategy (fired|checked)' ; exit 1 ; fi
+if test $# -lt 3 ; then echo 'ARGS: application_name (petclinic|splittypie|retroboard|phoenix|dimeshift) crawljax_element_strategy (fired|checked)' ; exit 1 ; fi
 
 application_name=$1
 crawljax_element_strategy=$2

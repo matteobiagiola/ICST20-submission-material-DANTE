@@ -9,10 +9,6 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
-/**
- * Example of running Crawljax with the CrawlOverview plugin on a single-page web app. The crawl
- * will produce output using the CrawlOverview plugin. Default output dir is "out".
- */
 public final class CrawlApp {
 
 	private final static Logger logger = Logger.getLogger(CrawlApp.class.getName());
