@@ -1,5 +1,6 @@
-package com.dante.filtering.moea;
+package com.dante.filtering.biobjective;
 
+import com.dante.utils.Properties;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -7,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -62,16 +62,18 @@ public class ComputeParetoBestSolution {
 
     public static void main(String[] args) {
 
+        config();
+
         if(args != null && args.length == 1) {
 
             File optimizationResultsDir = new File(args[0]);
             if(optimizationResultsDir.exists() && optimizationResultsDir.isDirectory()) {
                 List<File> resultsFile = getFunAndVarFiles(optimizationResultsDir);
                 File funFile = resultsFile.stream()
-                        .filter(file -> file.getName().equalsIgnoreCase("fun.tsv"))
+                        .filter(file -> file.getName().equals("FUN-" + Properties.APPLICATION_NAME + ".tsv"))
                         .findFirst().orElseThrow(RuntimeException::new);
                 File varFile = resultsFile.stream()
-                        .filter(file -> file.getName().equalsIgnoreCase("var.tsv"))
+                        .filter(file -> file.getName().equals("VAR-" + Properties.APPLICATION_NAME + ".tsv"))
                         .findFirst().orElseThrow(RuntimeException::new);
                 LinkedList<ObjectivesPair> originalObjectives = parseFunFile(funFile);
                 LinkedList<ObjectivesPair> orderedObjectives = new LinkedList<>(originalObjectives);
@@ -115,7 +117,7 @@ public class ComputeParetoBestSolution {
                             logger.info("Max derivative: " + maxDerivative);
                             logger.info("Pair of objectives where derivative is max (index: " + (indexOfObjectivePairInOriginalList
                                     + 1) + "): " + originalObjectives.get(indexOfObjectivePairInOriginalList));
-                            logger.info("Correspondent solution (index: " + (indexOfObjectivePairInOriginalList + 1) + "): "
+                            logger.info("Correspondent solution: "
                                     + solutions.get(indexOfObjectivePairInOriginalList));
                         } else {
                             throw new RuntimeException("Could not find objective pair " + objectivePairInOrderedList
@@ -145,8 +147,8 @@ public class ComputeParetoBestSolution {
         File[] files = optimizationResultsDir.listFiles();
         if(files != null) {
             return Arrays.stream(files)
-                    .filter(file -> file.getName().equalsIgnoreCase("fun.tsv")
-                    || file.getName().equalsIgnoreCase("var.tsv"))
+                    .filter(file -> file.getName().equals("FUN-" + Properties.APPLICATION_NAME + ".tsv")
+                                || file.getName().equals("VAR-" + Properties.APPLICATION_NAME + ".tsv"))
                     .collect(Collectors.toList());
         }
         throw new RuntimeException("Optimization results dir " + optimizationResultsDir + " is empty");
@@ -212,10 +214,10 @@ public class ComputeParetoBestSolution {
 
             if(currentDeps == nextDeps) {
                 derivative = Double.MAX_VALUE;
-                logger.info(derivative);
+                logger.debug(derivative);
             } else {
                 derivative = (currentCost - nextCost) / Math.abs(currentDeps - nextDeps);
-                logger.info(currentCost + " - " + nextCost + " / |"
+                logger.debug(currentCost + " - " + nextCost + " / |"
                         + currentDeps + " - " + nextDeps + "| = " + derivative);
             }
 
@@ -229,6 +231,12 @@ public class ComputeParetoBestSolution {
         return derivatives;
     }
 
+    private static void config(){
+        instantiateProperties();
+    }
 
+    private static void instantiateProperties(){
+        Properties.getInstance().createPropertiesFile();
+    }
 
 }

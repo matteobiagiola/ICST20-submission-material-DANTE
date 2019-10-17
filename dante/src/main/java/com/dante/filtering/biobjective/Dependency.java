@@ -1,4 +1,4 @@
-package com.dante.filtering.moea;
+package com.dante.filtering.biobjective;
 
 public class Dependency {
 

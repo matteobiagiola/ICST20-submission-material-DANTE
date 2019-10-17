@@ -1,4 +1,4 @@
-package com.dante.filtering.moea;
+package com.dante.filtering.biobjective;
 
 import org.apache.log4j.Logger;
 import org.uma.jmetal.solution.BinarySolution;

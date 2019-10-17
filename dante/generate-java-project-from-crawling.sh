@@ -15,7 +15,7 @@ function checkApplicationName(){
 
 function runJavaMainClass() {
     local main_class_name_local=$1
-    java -Xms2048m -Xmx2048m -cp $classpath \
+    java -cp $classpath \
         com.dante.suitegenerator.$main_class_name_local
 }
 
@@ -107,7 +107,7 @@ function checkBoolean(){
 	fi
 }
 
-function setFiredElementStrategy() {
+function setElementStrategy() {
     local application_name_local=$1
     local element_strategy=none
     if [[ $application_name_local == "petclinic" || \
@@ -155,7 +155,7 @@ checkApplicationName $application_name
 checkBoolean $headless
 
 setApplicationName $application_name
-element_strategy=$(setFiredElementStrategy $application_name)
+element_strategy=$(setElementStrategy $application_name)
 main_class_name=TestSuiteGenerator
 runJavaMainClass $main_class_name
 

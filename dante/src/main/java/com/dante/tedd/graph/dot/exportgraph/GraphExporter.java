@@ -8,6 +8,7 @@ import org.jgrapht.io.DOTExporter;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
@@ -16,6 +17,7 @@ public class GraphExporter<T> {
     private Graph<GraphNode<T>, GraphEdge> dependencyGraph;
     private EdgeLabelProvider edgeLabelProvider;
     private NodeNameProvider<T> nodeNameProvider;
+    private String dependencyGraphPath;
 
     public GraphExporter() {
         this.edgeLabelProvider = new EdgeLabelProvider();
@@ -35,6 +37,8 @@ public class GraphExporter<T> {
             Writer writer = new PrintWriter(dependencyGraphPath + "/" + exportedGraphName + "-"
                     + Properties.APPLICATION_NAME + ".txt", "UTF-8");
             dotExporter.exportGraph(dependencyGraph, writer);
+            this.dependencyGraphPath = dependencyGraphPath + "/" + exportedGraphName + "-"
+                    + Properties.APPLICATION_NAME + ".txt";
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -50,11 +54,17 @@ public class GraphExporter<T> {
                         + exportedGraphName + "-"
                         + Properties.APPLICATION_NAME + ".txt", "UTF-8");
                 dotExporter.exportGraph(this.dependencyGraph, writer);
+                this.dependencyGraphPath = dependencyGraphPath + "/" + exportedGraphName + "-"
+                        + Properties.APPLICATION_NAME + ".txt";
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         } else {
             throw new UnsupportedOperationException("Dependency graph is not initialized");
         }
+    }
+
+    public String getDependencyGraphPath() {
+        return dependencyGraphPath;
     }
 }

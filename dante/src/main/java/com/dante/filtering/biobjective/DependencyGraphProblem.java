@@ -1,4 +1,4 @@
-package com.dante.filtering.moea;
+package com.dante.filtering.biobjective;
 
 import com.dante.tedd.graph.GraphEdge;
 import com.dante.tedd.graph.GraphNode;

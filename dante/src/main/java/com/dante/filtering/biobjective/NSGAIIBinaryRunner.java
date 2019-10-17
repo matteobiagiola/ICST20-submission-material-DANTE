@@ -1,8 +1,15 @@
-package com.dante.filtering.moea;
+package com.dante.filtering.biobjective;
 
+import com.dante.parsing.TestCaseFinder;
+import com.dante.tedd.extraction.DependencyGraphExtractor;
+import com.dante.tedd.extraction.originalorder.OriginalOrderDependencyGraphExtractor;
+import com.dante.tedd.graph.GraphEdge;
+import com.dante.tedd.graph.GraphNode;
+import com.dante.tedd.graph.dot.exportgraph.GraphExporter;
 import com.dante.utils.ExecutionTime;
 import com.dante.utils.Properties;
 import org.apache.log4j.Logger;
+import org.jgrapht.Graph;
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.algorithm.multiobjective.nsgaii.NSGAIIBuilder;
 import org.uma.jmetal.operator.CrossoverOperator;
@@ -18,6 +25,7 @@ import org.uma.jmetal.util.AlgorithmRunner;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.ProblemUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,6 +48,25 @@ public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
 
         config();
 
+        Properties.getInstance().checkFileExistence(Properties.TEST_SUITE_PATH,
+                "test_suite_path");
+
+        Properties.tests_order = new TestCaseFinder().getTestCaseOrder();
+        logger.info("Tests order: " + Arrays.asList(Properties.tests_order));
+
+        DependencyGraphExtractor dependencyGraphExtractor
+                = new OriginalOrderDependencyGraphExtractor();
+
+        Graph<GraphNode<String>, GraphEdge> dependencyGraph = dependencyGraphExtractor.computeDependencies();
+        logger.info("Number of tests: " + dependencyGraph.vertexSet().size());
+        logger.info("Number of dependencies: " + dependencyGraph.edgeSet().size());
+
+        GraphExporter<String> graphExporter = new GraphExporter<>(dependencyGraph);
+        graphExporter.export("graph-original-order");
+
+        Properties.GRAPH_PATH = graphExporter.getDependencyGraphPath();
+        logger.info("Graph path: " + Properties.GRAPH_PATH);
+
         int populationSize = 100;
         int maxEvaluations = 1000000;
 
@@ -57,16 +84,13 @@ public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
 
         long start = System.currentTimeMillis();
 
-        Properties.getInstance().checkFileExistence(Properties.GRAPH_PATH,
-                "graph_path");
-
         BinaryProblem problem;
         Algorithm<List<BinarySolution>> algorithm;
         CrossoverOperator<BinarySolution> crossover;
         MutationOperator<BinarySolution> mutation;
         SelectionOperator<List<BinarySolution>, BinarySolution> selection;
 
-        String problemName = "com.dante.filtering.moea.DependencyGraphProblem";
+        String problemName = "com.dante.filtering.biobjective.DependencyGraphProblem";
         String referenceParetoFront = "";
 
         problem = (BinaryProblem) ProblemUtils.<BinarySolution> loadProblem(problemName);

@@ -1,4 +1,4 @@
-package com.dante.filtering.moea;
+package com.dante.filtering.biobjective;
 
 import org.uma.jmetal.problem.BinaryProblem;
 import org.uma.jmetal.solution.BinarySolution;

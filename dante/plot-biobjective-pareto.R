@@ -15,6 +15,6 @@ pdf_file_path <- paste(substring(tsv_file_path, 0, indexLastSlash - 1), "plot.pd
 # Open a pdf file
 pdf(pdf_file_path) 
 # 2. Create a plot
-plot(x, y)
+plot(x, y, main="Pareto front cost-vs-dependencies", xlab="# dependencies", ylab="recovery cost")
 # Close the pdf file
 dev.off() 

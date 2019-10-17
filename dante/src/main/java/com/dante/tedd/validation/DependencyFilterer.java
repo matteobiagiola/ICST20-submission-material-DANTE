@@ -1,6 +1,5 @@
 package com.dante.tedd.validation;
 
-import com.dante.filtering.moea.Dependency;
 import com.dante.tedd.graph.GraphEdge;
 import com.dante.tedd.graph.GraphNode;
 import com.dante.tedd.graph.GraphUtils;
