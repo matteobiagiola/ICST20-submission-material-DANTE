@@ -1,4 +1,4 @@
-package com.dante.minimization;
+package com.dante.filtering.coverage;
 
 import com.dante.parsing.TestCaseFinder;
 import com.dante.tedd.execution.TestCaseExecutor;
@@ -15,9 +15,9 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class FixMinimizedTestSuite {
+public class FixSelectedTestSuite {
 
-    private final static Logger logger = Logger.getLogger(FixMinimizedTestSuite.class.getName());
+    private final static Logger logger = Logger.getLogger(FixSelectedTestSuite.class.getName());
 
     public static void main(String[] args) {
 
@@ -28,9 +28,9 @@ public class FixMinimizedTestSuite {
 
         Properties.tests_order = new TestCaseFinder().getTestCaseOrder();
 
-        String solutionAsByteString = Properties.SOLUTION_BYTE_STRING;
+        String solutionAsByteString = Properties.COVERAGE_DRIVEN_TEST_SELECTION_BYTE_STRING;
         if (solutionAsByteString.toCharArray().length != Properties.tests_order.length) {
-            throw new IllegalArgumentException("Solution given by the solver " + solutionAsByteString + " does not have" +
+            throw new IllegalArgumentException("Solution given by the selector " + solutionAsByteString + " does not have" +
                     " the same number of tests " + solutionAsByteString.toCharArray().length + " as the test suite "
                     + Properties.tests_order.length);
         }
@@ -41,26 +41,26 @@ public class FixMinimizedTestSuite {
         Set<GraphNode<String>> schedule;
 
         Set<GraphNode<String>> allTests = new LinkedHashSet<>();
-        Set<GraphNode<String>> testsInMinimizedSuite = new LinkedHashSet<>();
+        Set<GraphNode<String>> testsInSelectedSuite = new LinkedHashSet<>();
         char[] solutionAsByteArray = solutionAsByteString.toCharArray();
         for (int i = 0; i < Properties.tests_order.length; i++) {
             String test = Properties.tests_order[i];
             GraphNode<String> testNode = new GraphNode<>(test, i);
             allTests.add(testNode);
             if(solutionAsByteArray[i] == '1') {
-                testsInMinimizedSuite.add(testNode);
+                testsInSelectedSuite.add(testNode);
             }
         }
 
-        if(testsInMinimizedSuite.isEmpty()) {
+        if(testsInSelectedSuite.isEmpty()) {
             throw new RuntimeException("Solution as string does not contain any '1'");
         }
 
         try {
 
 
-            logger.info("Fixing minimized test suite...");
-            schedule = new LinkedHashSet<>(testsInMinimizedSuite);
+            logger.info("Fixing selected test suite...");
+            schedule = new LinkedHashSet<>(testsInSelectedSuite);
             long starTimeTotal = System.currentTimeMillis();
             starTime = System.currentTimeMillis();
             Map<GraphNode<String>, TestResult> results = executeTests(schedule, testCaseExecutor);
@@ -148,66 +148,17 @@ public class FixMinimizedTestSuite {
                 }
             }
 
-            // One by one heuristics
-//            while(testCaseThatFailedOptional.isPresent()){
-//                GraphNode<String> testCaseThatFailed = testCaseThatFailedOptional.get();
-//                endTime = System.currentTimeMillis();
-//                logger.info("Test case " + testCaseThatFailed + " failed on schedule " + schedule);
-//                logger.info("Time elapsed: " + new ExecutionTime().computeExecutionTime(endTime - starTime));
-//                Set<GraphNode<String>> testsTillFailedOne = schedule.stream()
-//                        .filter(node -> node.getNumOrder() < testCaseThatFailed.getNumOrder())
-//                        .collect(Collectors.toSet());
-//                Set<GraphNode<String>> allTestsTillFailedOne = allTests.stream()
-//                        .filter(node -> node.getNumOrder() < testCaseThatFailed.getNumOrder())
-//                        .collect(Collectors.toSet());
-//
-//                Set<GraphNode<String>> preconditions = SetsUtils
-//                        .setsDifference(allTestsTillFailedOne, testsTillFailedOne);
-//                List<GraphNode<String>> orderedPreconditions = new LinkedList<>(preconditions);
-//                orderedPreconditions.sort(new ComparatorNodesIncreasing<>());
-//                preconditions = new LinkedHashSet<>(orderedPreconditions);
-//
-//                logger.info("Test case " + testCaseThatFailed + " probably depends on " +
-//                        "one or more of the following tests: " + preconditions);
-//                if(!previousTestCaseThatFailedOptional.equals(testCaseThatFailedOptional)) {
-//                    previousTestCaseThatFailedOptional = testCaseThatFailedOptional;
-//
-//                }
-//
-//                if(preconditions.isEmpty()) {
-//                    throw new RuntimeException("Adding all preconditions did not let "
-//                            + testCaseThatFailed + " to pass");
-//                }
-//
-//                GraphNode<String> preconditionToAdd = new LinkedList<>(preconditions)
-//                        .get(preconditionCounter);
-//
-//                logger.info("Adding precondition: " + preconditionToAdd);
-//
-//                schedule.add(preconditionToAdd);
-//                List<GraphNode<String>> orderedSchedule = new ArrayList<>(schedule);
-//                orderedSchedule.sort(new ComparatorNodesIncreasing<>());
-//                schedule = new LinkedHashSet<>(orderedSchedule);
-//                logger.info("Schedule: " + schedule);
-//                results = executeTests(schedule, testCaseExecutor);
-//                testCaseThatFailedOptional = getFailureTestCase(results);
-//
-//            }
-
             long endTimeTotal = System.currentTimeMillis();
-            long timeToFixMinimizedTestSuite = endTimeTotal - starTimeTotal;
+            long timeToFixSelectedTestSuite = endTimeTotal - starTimeTotal;
 
-            logger.info("Executing final minimized test suite: " + schedule);
-            starTime = System.currentTimeMillis();
+            logger.info("Executing final filtered test suite: " + schedule);
             results = executeTests(schedule, testCaseExecutor);
             testCaseThatFailedOptional = getFailureTestCase(results);
             if(testCaseThatFailedOptional.isPresent()){
                 String errorMessage = "Test case " + testCaseThatFailedOptional.get()
-                        + " failed on schedule " + schedule + ". Something went wrong during validation/minimization!";
+                        + " failed on schedule " + schedule + ". Something went wrong during validation/selection!";
                 throw new RuntimeException(errorMessage);
             }
-            endTime = System.currentTimeMillis();
-            long timeToExecuteMinimizedTestSuite = endTime - starTime;
 
             StringBuilder newSolutionAsByteArrayString = new StringBuilder();
             int numberOfTestsInFinalTestSuite = 0;
@@ -229,39 +180,16 @@ public class FixMinimizedTestSuite {
                 }
             }
 
-//            logger.info("Executing original test suite...");
-//            starTime = System.currentTimeMillis();
-//            schedule = new LinkedHashSet<>(allTests);
-//            results = executeTests(schedule, testCaseExecutor);
-//            testCaseThatFailedOptional = getFailureTestCase(results);
-//            if(testCaseThatFailedOptional.isPresent()){
-//                String errorMessage = "Test case " + testCaseThatFailedOptional.get()
-//                        + " failed on schedule " + schedule + ", test suite might be flaky!";
-//                throw new RuntimeException(errorMessage);
-//            }
-//            endTime = System.currentTimeMillis();
-//            long timeToExecuteOriginalTestSuite = endTime - starTime;
-
 
             logger.info("=====================================");
 
             logger.info("Number of tests in original suite: " + allTests.size());
-            logger.info("Number of tests in minimized suite: " + numberOfTestsInFinalTestSuite);
-            logger.info("Minimization rate reduction: "
+            logger.info("Number of tests in filtered suite: " + numberOfTestsInFinalTestSuite);
+            logger.info("Filtered rate reduction: "
                     + ((double) (allTests.size() - numberOfTestsInFinalTestSuite) / allTests.size()) * 100 + "%");
-            logger.info("Time to fix test suite: "
-                    + new ExecutionTime().computeExecutionTime(timeToFixMinimizedTestSuite));
-            logger.info("Final minimized test suite: " + newSolutionAsByteArrayString.toString());
-
-//            logger.info("Original suite execution time: "
-//                    + new ExecutionTime().computeExecutionTime(timeToExecuteOriginalTestSuite));
-            logger.info("Original suite execution time: ...");
-            logger.info("Minimized suite execution time: "
-                    + new ExecutionTime().computeExecutionTime(timeToExecuteMinimizedTestSuite));
-//            logger.info("Minimization time rate reduction: "
-//                    + ((double) (timeToExecuteOriginalTestSuite - timeToExecuteMinimizedTestSuite) / timeToExecuteOriginalTestSuite) * 100 + "%");
-            logger.info("Minimization time rate reduction: ...%");
-
+            logger.info("Time to fix selected test suite: "
+                    + new ExecutionTime().computeExecutionTime(timeToFixSelectedTestSuite));
+            logger.info("Final filtered test suite: " + newSolutionAsByteArrayString.toString());
 
             logger.info("=====================================");
 

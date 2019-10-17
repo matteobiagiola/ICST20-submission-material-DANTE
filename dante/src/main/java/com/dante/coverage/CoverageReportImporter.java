@@ -56,7 +56,7 @@ public class CoverageReportImporter {
                 } else {
                     Set<CovUnit> collectorCovUnits = mapScriptCovUnits.get(coverageReportLine.getScriptName());
                     collectorCovUnits.addAll(coverageReportLine.getUnits());
-                    logger.info("cov units incremental size: " + collectorCovUnits.size()
+                    logger.debug("cov units incremental size: " + collectorCovUnits.size()
                             + " cov file: " + coverageFileTest.getName());
                 }
 

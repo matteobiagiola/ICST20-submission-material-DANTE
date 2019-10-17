@@ -1,7 +1,8 @@
-package com.dante.minimization;
+package com.dante.filtering.coverage;
 
 import com.dante.coverage.CoverageReport;
 import com.dante.coverage.CoverageReportImporter;
+import com.dante.minimization.TestSelector;
 import com.dante.parsing.TestCaseFinder;
 import com.dante.tedd.graph.GraphNode;
 import com.dante.tedd.graph.GraphUtils;
