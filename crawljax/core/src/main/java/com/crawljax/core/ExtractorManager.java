@@ -30,6 +30,14 @@ public interface ExtractorManager {
 	boolean isFired(Element element, Identification identification);
 
 	/**
+	 * Check if a given element is already fired, preventing duplicate work.
+	 *
+	 * @param element the to search for if its already fired
+	 * @return true if the element is already fired
+	 */
+	boolean isFired(String element);
+
+	/**
 	 * Mark a given element as checked to prevent duplicate work. An element is
 	 * only added when it is not already in the set of checked elements.
 	 *

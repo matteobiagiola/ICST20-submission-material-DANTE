@@ -25,9 +25,8 @@ public class EcommerceConfig extends Config {
     public CrawljaxConfiguration.CrawljaxConfigurationBuilder getCrawljaxConfig() {
 
         CrawljaxConfiguration.CrawljaxConfigurationBuilder builder = this.crawljaxCommonConfig(url,
-                Properties.MAX_RUNTIME, 100, waitTimeAfterReload);
+                Properties.MAX_RUNTIME, 200, waitTimeAfterReload);
 
-        builder.crawlRules().click("SPAN");
         builder.crawlRules().click("BUTTON");
         builder.crawlRules().click("A");
 
@@ -37,6 +36,8 @@ public class EcommerceConfig extends Config {
                 .underXPath("//DIV[@id = 'carousel-example-generic']/A[1]");
         builder.crawlRules().dontClick("A")
                 .underXPath("//DIV[@id = 'carousel-example-generic']/A[2]");
+
+        builder.setHandleSameFormInputsOncePerState(true);
 
         return builder;
 
@@ -50,7 +51,7 @@ public class EcommerceConfig extends Config {
         List<List<Integer>> lineRanges = new ArrayList<>();
         lineRanges.add(Arrays.asList(1, 942));
         suiteGeneratorConfig.setScriptNamesToExclude(new ArrayList<>());
-        suiteGeneratorConfig.setScriptNameToInclude("bundle-23e53e4471");
+        suiteGeneratorConfig.setScriptNameToInclude("bundle-0fda149fe4");
         suiteGeneratorConfig.setLineRanges(lineRanges);
         suiteGeneratorConfig.setFiredElementStrategy(true);
 

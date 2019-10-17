@@ -272,9 +272,17 @@ public class CandidateElementExtractor {
 					LOG.debug("Element {} was not added", element);
 				}
 			} else if (candidateElementsMode.equals(CrawljaxConfiguration.CandidateElementsMode.fired)) {
-				Identification identification = new Identification(Identification.How.xpath,
-						XPathHelper.getXPathExpression(element));
-				if (matchesXpath && !checkedElements.isFired(element, identification)
+//				Identification identification = new Identification(Identification.How.xpath,
+//						XPathHelper.getXPathExpression(element));
+//				if (matchesXpath && !checkedElements.isFired(element, identification)
+//						&& !isExcluded(dom, element, eventableConditionChecker)
+//						&& isVisible(element)) {
+//					addElement(element, result, crawlElement);
+//				} else {
+//					LOG.debug("Element {} was not added", element);
+//				}
+				String id = element.getNodeName() + ": " + DomUtils.getAllElementAttributes(element);
+				if (matchesXpath && !checkedElements.isFired(id)
 						&& !isExcluded(dom, element, eventableConditionChecker)
 						&& isVisible(element)) {
 					addElement(element, result, crawlElement);
@@ -383,6 +391,8 @@ public class CandidateElementExtractor {
 				if (!clickOnce || checkedElements.markChecked(candidateElement)) {
 					LOG.debug("Found new candidate element: {} with eventableCondition {}",
 							candidateElement.getUniqueString(), eventableCondition);
+					System.out.println("Found new candidate element: " + candidateElement.getUniqueString()
+							+ " with eventable condition " + eventableCondition);
 					candidateElement.setEventableCondition(eventableCondition);
 					results.add(candidateElement);
 					/*
@@ -392,13 +402,25 @@ public class CandidateElementExtractor {
 					 */
 				}
 			} else if(candidateElementsMode.equals(CrawljaxConfiguration.CandidateElementsMode.fired)) {
-				if (!clickOnce || !checkedElements.isFired(candidateElement.getElement(),
-						candidateElement.getIdentification())) {
-					checkedElements.markChecked(candidateElement);
-					LOG.debug("Found new candidate element: {} with eventableCondition {}",
-							candidateElement.getUniqueString(), eventableCondition);
-					candidateElement.setEventableCondition(eventableCondition);
-					results.add(candidateElement);
+//				if (!clickOnce || !checkedElements.isFired(candidateElement.getElement(),
+//						candidateElement.getIdentification())) {
+//					checkedElements.markChecked(candidateElement);
+//					LOG.debug("Found new candidate element: {} with eventableCondition {}",
+//							candidateElement.getUniqueString(), eventableCondition);
+//					candidateElement.setEventableCondition(eventableCondition);
+//					results.add(candidateElement);
+//				}
+				if (!clickOnce || !checkedElements.isFired(candidateElement.getUniqueString())) {
+					boolean match = results.stream().anyMatch(candidateElement1 ->
+							candidateElement1.getUniqueString().equals(candidateElement.getUniqueString()));
+					if(!match) {
+						results.add(candidateElement);
+						LOG.debug("Found new candidate element: {} with eventableCondition {}",
+								candidateElement.getUniqueString(), eventableCondition);
+						System.out.println("Found new candidate element: " + candidateElement.getUniqueString()
+								+ " with eventable condition " + eventableCondition);
+						candidateElement.setEventableCondition(eventableCondition);
+					}
 				}
 			}
 		}
@@ -459,8 +481,9 @@ public class CandidateElementExtractor {
 	}
 
 	public void elementFired(CandidateElement candidateElementFired) {
-		checkedElements.markFired(candidateElementFired);
-		checkedElements.increaseElementsFiredCounter();
+		if(checkedElements.markFired(candidateElementFired)) {
+			checkedElements.increaseElementsFiredCounter();
+		}
 	}
 
 	public boolean isElementFired(CandidateElement candidateElement){

@@ -515,6 +515,8 @@ public class Crawler {
 
 			if(eventable.getCandidateElement() != null){
 				// mark candidate element as fired
+				System.out.println("Mark candidate element: "
+						+ eventable.getCandidateElement().getUniqueString() + " as fired");
 				this.candidateExtractor.elementFired(eventable.getCandidateElement());
 			}
 

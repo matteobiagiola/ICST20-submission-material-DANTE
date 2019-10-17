@@ -58,6 +58,11 @@ public class CandidateElementManager implements ExtractorManager {
 	private final Object elementsLock = new Object();
 
 	/**
+	 * Used to lock the fired elements when adding multiple fired elements.
+	 */
+	private final Object firedElementsLock = new Object();
+
+	/**
 	 * Create a new CandidateElementManager.
 	 *
 	 * @param eventableConditionChecker the EventableConditionChecker to use
@@ -88,7 +93,10 @@ public class CandidateElementManager implements ExtractorManager {
 	 * @see java.util.concurrent.atomic.AtomicInteger
 	 */
 	@Override
-	public void increaseElementsFiredCounter() { counterFired.getAndIncrement(); }
+	public void increaseElementsFiredCounter() {
+		counterFired.getAndIncrement();
+		System.out.println("**** Counter fired: " + counterFired.intValue());
+	}
 
 	/**
 	 * Check if a given element is already checked, preventing duplicate work. This is implemented
@@ -117,6 +125,18 @@ public class CandidateElementManager implements ExtractorManager {
 	}
 
 	/**
+	 * Check if a given element is already checked, preventing duplicate work. This is implemented
+	 * in a ConcurrentLinkedQueue to support thread-safety
+	 *
+	 * @param element the to search for if its already fired
+	 * @return true if the element is already fired
+	 */
+	@Override
+	public boolean isFired(String element) {
+		return firedElements.contains(element);
+	}
+
+	/**
 	 * Mark a given element as checked to prevent duplicate work. An element is only added when it
 	 * is not already in the set of checked elements.
 	 *
@@ -134,6 +154,7 @@ public class CandidateElementManager implements ExtractorManager {
 			} else {
 				elements.add(generalString);
 				elements.add(uniqueString);
+				System.out.println("**** Checked candidate element: " + uniqueString);
 				return true;
 			}
 		}
@@ -146,16 +167,28 @@ public class CandidateElementManager implements ExtractorManager {
 	 * @param element the element that is fired
 	 * @return true if !contains(element.uniqueString)
 	 */
-	@GuardedBy("elementsLock")
+	@GuardedBy("firedElementsLock")
 	@Override
 	public boolean markFired(CandidateElement element) {
-		String id = CandidateElement.getElementId(element.getElement(),
-				element.getIdentification());
-		synchronized (elementsLock) {
-			if (firedElements.contains(id)) {
+//		String id = CandidateElement.getElementId(element.getElement(),
+//				element.getIdentification());
+//		synchronized (firedElementsLock) {
+//			if (firedElements.contains(id)) {
+//				return false;
+//			} else {
+//				firedElements.add(id);
+//				return true;
+//			}
+//		}
+		String generalString = element.getGeneralString();
+		String uniqueString = element.getUniqueString();
+		synchronized (firedElementsLock) {
+			if (firedElements.contains(uniqueString)) {
 				return false;
 			} else {
-				firedElements.add(id);
+				firedElements.add(generalString);
+				firedElements.add(uniqueString);
+				System.out.println("**** Fired candidate element: " + uniqueString);
 				return true;
 			}
 		}
