@@ -5,7 +5,6 @@ import com.crawljax.core.configuration.Form;
 import com.crawljax.core.configuration.InputSpecification;
 import com.crawljax.core.state.Identification;
 import com.crawljax.forms.FormInput;
-import com.crawljax.stateabstractions.visual.imagehashes.DHashStateVertexFactory;
 import com.crawljax.stateabstractions.visual.imagehashes.PerceptualImageHashStateVertexFactory;
 import com.dante.subjects.ApplicationNames;
 import com.dante.subjects.Config;
@@ -247,7 +246,7 @@ public class DimeshiftConfig extends Config {
         // window strategy
 //        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("10100011111111011000000000000000000000000000000000000000");
         // one by one strategy
-        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("11111111111111011000000000000000000000000000000000000000");
+        dependencyGraphExtractionConfig.setFixedSelectedTestSuite("11111111111111011000000000000000000000000000000000000000");
 
         return dependencyGraphExtractionConfig;
     }

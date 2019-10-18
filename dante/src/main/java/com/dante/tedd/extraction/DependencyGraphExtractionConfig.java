@@ -3,7 +3,7 @@ package com.dante.tedd.extraction;
 public class DependencyGraphExtractionConfig {
 
     private String dependencyGraphOptimized;
-    private String fixedMinimizedTestSuite;
+    private String fixedSelectedTestSuite;
 
     public void setParetoFrontSolution(String dependencyGraphOptimized) {
         this.dependencyGraphOptimized = dependencyGraphOptimized
@@ -16,13 +16,13 @@ public class DependencyGraphExtractionConfig {
         return dependencyGraphOptimized;
     }
 
-    public void setFixedMinimizedTestSuite(String fixedMinimizedTestSuite) {
-        this.fixedMinimizedTestSuite = fixedMinimizedTestSuite;
+    public void setFixedSelectedTestSuite(String fixedSelectedTestSuite) {
+        this.fixedSelectedTestSuite = fixedSelectedTestSuite;
     }
 
-    public String getFixedMinimizedTestSuite() {
-        if(fixedMinimizedTestSuite == null)
+    public String getFixedSelectedTestSuite() {
+        if(fixedSelectedTestSuite == null)
             throw new UnsupportedOperationException("Fixed minimized test suite not set!");
-        return fixedMinimizedTestSuite;
+        return fixedSelectedTestSuite;
     }
 }

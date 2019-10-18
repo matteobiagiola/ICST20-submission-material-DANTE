@@ -15,17 +15,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MoeaDependencyGraphExtraction implements DependencyGraphExtractor {
+public class BiobjectiveDependencyGraphExtraction implements DependencyGraphExtractor {
 
     private final String mapOfDependenciesToAdd;
 
-    private final static Logger logger = Logger.getLogger(MoeaDependencyGraphExtraction.class.getName());
+    private final static Logger logger = Logger.getLogger(BiobjectiveDependencyGraphExtraction.class.getName());
 
-    public MoeaDependencyGraphExtraction(Config config) {
+    public BiobjectiveDependencyGraphExtraction(Config config) {
         this.mapOfDependenciesToAdd = config.getDependencyGraphExtractionConfig().getParetoFrontSolution();
     }
 
-    public MoeaDependencyGraphExtraction(String mapOfDependenciesToAdd) {
+    public BiobjectiveDependencyGraphExtraction(String mapOfDependenciesToAdd) {
         if(mapOfDependenciesToAdd == null || mapOfDependenciesToAdd.isEmpty())
             throw new IllegalArgumentException("Map of dependencies cannot be null nor empty!");
         this.mapOfDependenciesToAdd = mapOfDependenciesToAdd;
@@ -58,7 +58,7 @@ public class MoeaDependencyGraphExtraction implements DependencyGraphExtractor {
             throw new IllegalStateException("Number of variables must be equal to num of tests (nodes) - 1: "
                     + (Properties.tests_order.length - 1) + ". Found: " + numberOfVariables);
         }
-        List<GraphNode<String>> nodes = this.buildNodes();
+        List<GraphNode<String>> nodes = this.buildNodes(dependencyGraphManager);
         for (int i = 1; i < nodes.size(); i++) {
             char[] bits = mapNodesDeps.get(i - 1).toCharArray();
             this.addDependenciesTowards(nodes.subList(0, i), bits, nodes.get(i), dependencyGraphManager);
@@ -66,10 +66,12 @@ public class MoeaDependencyGraphExtraction implements DependencyGraphExtractor {
         return dependencyGraphManager.getDependencyGraph();
     }
 
-    private List<GraphNode<String>> buildNodes() {
+    private List<GraphNode<String>> buildNodes(DependencyGraphManager<String> dependencyGraphManager) {
         List<GraphNode<String>> result = new LinkedList<>();
         for (int i = 0; i < Properties.tests_order.length; i++) {
-            result.add(new GraphNode<>(Properties.tests_order[i], i));
+            GraphNode<String> graphNode = new GraphNode<>(Properties.tests_order[i], i);
+            result.add(graphNode);
+            dependencyGraphManager.addNode(graphNode);
         }
         return result;
     }

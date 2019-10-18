@@ -10,10 +10,8 @@ import org.apache.log4j.Logger;
 import org.jgrapht.Graph;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CoverageDrivenGraphExtraction implements DependencyGraphExtractor {
 
@@ -23,7 +21,7 @@ public class CoverageDrivenGraphExtraction implements DependencyGraphExtractor {
 
     public CoverageDrivenGraphExtraction(Config config) {
         this.mapOfNodesToAdd = config.getDependencyGraphExtractionConfig()
-                .getFixedMinimizedTestSuite();
+                .getFixedSelectedTestSuite();
         if(this.mapOfNodesToAdd.toCharArray().length != Properties.tests_order.length) {
             throw new IllegalArgumentException("The number of nodes in the fixed minimized test suite "
                     + this.mapOfNodesToAdd.toCharArray().length + " != number of tests in the test suite "

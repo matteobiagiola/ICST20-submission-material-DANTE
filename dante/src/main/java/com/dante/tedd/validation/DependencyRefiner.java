@@ -394,9 +394,11 @@ public class DependencyRefiner {
             if(Properties.PRINT_INTERMEDIATE_GRAPHS) {
 
                 if(originalGraph != null) {
-                    graphExporter.export(originalGraph,"dependency-graph-" + this.iterationId);
+                    graphExporter.export(originalGraph,"dependency-graph-"
+                            + Properties.EXTRACTION_STRATEGY + "-" + this.iterationId);
                 } else {
-                    graphExporter.export("dependency-graph-" + this.iterationId);
+                    graphExporter.export("dependency-graph-"
+                            + Properties.EXTRACTION_STRATEGY + "-" + this.iterationId);
                 }
 
             }

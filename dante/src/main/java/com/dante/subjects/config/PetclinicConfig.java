@@ -224,7 +224,7 @@ public class PetclinicConfig extends Config {
         // window strategy
 //        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("00100001100000000000000100000000001110001010100000001000000000000");
         // one by one strategy
-        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("11111111111111111111111111111111111110001010100000001000000000000");
+        dependencyGraphExtractionConfig.setFixedSelectedTestSuite("11111111111111111111111111111111111110001010100000001000000000000");
 
         return dependencyGraphExtractionConfig;
     }

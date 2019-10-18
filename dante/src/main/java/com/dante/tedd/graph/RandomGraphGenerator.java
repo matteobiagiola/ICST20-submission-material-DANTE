@@ -1,6 +1,6 @@
 package com.dante.tedd.graph;
 
-import com.dante.tedd.extraction.moea.MoeaDependencyGraphExtraction;
+import com.dante.tedd.extraction.moea.BiobjectiveDependencyGraphExtraction;
 import com.dante.utils.Randomness;
 import org.jgrapht.Graph;
 
@@ -31,9 +31,9 @@ public class RandomGraphGenerator {
         }
 
         String mapOfDependenciesToAdd = stringBuilder.toString();
-        MoeaDependencyGraphExtraction moeaDependencyGraphExtraction
-                = new MoeaDependencyGraphExtraction(mapOfDependenciesToAdd);
+        BiobjectiveDependencyGraphExtraction biobjectiveDependencyGraphExtraction
+                = new BiobjectiveDependencyGraphExtraction(mapOfDependenciesToAdd);
 
-        return moeaDependencyGraphExtraction.generateGraph(0);
+        return biobjectiveDependencyGraphExtraction.generateGraph(0);
     }
 }

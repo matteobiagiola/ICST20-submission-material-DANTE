@@ -13,9 +13,7 @@ import org.apache.log4j.Logger;
 import org.jgrapht.Graph;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
 
 public class ValidateDependencies {
 
@@ -45,7 +43,7 @@ public class ValidateDependencies {
 
         GraphExporter<String> graphExporter;
 
-        if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.MOEA.getStrategyName())
+        if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.BIOBJECTIVE.getStrategyName())
                 || Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.SUB_USE.getStrategyName())) {
             checkForMissing = true;
         }
@@ -61,7 +59,8 @@ public class ValidateDependencies {
             }
 
             graphExporter = new GraphExporter<>(dependencyGraph);
-            graphExporter.export("dependency-graph-final-refine");
+            graphExporter.export("dependency-graph-"
+                    + Properties.EXTRACTION_STRATEGY + "-final-refine");
 
             if(checkForMissing) {
 
@@ -71,7 +70,8 @@ public class ValidateDependencies {
                 dependencyGraph = recoverMissedDependencies.computeMissedDependencies();
 
                 graphExporter = new GraphExporter<>(dependencyGraph);
-                graphExporter.export("dependency-graph-initial-recover-missed");
+                graphExporter.export("dependency-graph-"
+                        + Properties.EXTRACTION_STRATEGY + "-initial-recover-missed");
 
                 int iterationId = dependencyRefiner.getIterationId();
                 dependencyRefiner = new DependencyRefiner(recoverMissedDependencies.getExecutionTimes(),
@@ -84,7 +84,8 @@ public class ValidateDependencies {
                         .computeExecutionTime(Arrays.asList((System.currentTimeMillis() - startTime))));
 
                 graphExporter = new GraphExporter<>(dependencyGraph);
-                graphExporter.export("dependency-graph-final-recover-missed");
+                graphExporter.export("dependency-graph-" + Properties.EXTRACTION_STRATEGY
+                        +  "-final-recover-missed");
             }
 
         } catch (Exception e) {

@@ -132,7 +132,7 @@ public class SplittypieConfig extends Config {
         // window strategy
 //        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("010110000110000000000010000100000011000010000000000000000000000000000");
         // one by one strategy
-        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("111111111111111111111111111100000000000010000000000000000000000000000");
+        dependencyGraphExtractionConfig.setFixedSelectedTestSuite("111111111111111111111111111100000000000010000000000000000000000000000");
 
         return dependencyGraphExtractionConfig;
     }

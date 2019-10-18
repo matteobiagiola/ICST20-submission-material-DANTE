@@ -6,7 +6,7 @@ import com.dante.subjects.SetupApp;
 import com.dante.tedd.extraction.DependencyGraphExtractor;
 import com.dante.tedd.extraction.ExtractionStrategies;
 import com.dante.tedd.extraction.coverage_selection.CoverageDrivenGraphExtraction;
-import com.dante.tedd.extraction.moea.MoeaDependencyGraphExtraction;
+import com.dante.tedd.extraction.moea.BiobjectiveDependencyGraphExtraction;
 import com.dante.tedd.extraction.originalorder.OriginalOrderDependencyGraphExtractor;
 import com.dante.tedd.extraction.string.ConstantStringsAnalyzer;
 import com.dante.tedd.graph.GraphEdge;
@@ -18,9 +18,7 @@ import com.dante.utils.Properties;
 import org.apache.log4j.Logger;
 import org.jgrapht.Graph;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
 
 public class ComputeAndValidateDependencies {
 
@@ -43,10 +41,11 @@ public class ComputeAndValidateDependencies {
         Graph<GraphNode<String>, GraphEdge> dependencyGraph = dependencyGraphExtractor.computeDependencies();
 
         GraphExporter<String> graphExporter = new GraphExporter<>(dependencyGraph);
-        graphExporter.export("dependency-graph-initial");
+        graphExporter.export("dependency-graph-"
+                + Properties.EXTRACTION_STRATEGY + "-initial");
 
 
-        if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.MOEA.getStrategyName())
+        if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.BIOBJECTIVE.getStrategyName())
                 || Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.SUB_USE.getStrategyName())) {
             checkForMissing = true;
         }
@@ -62,7 +61,8 @@ public class ComputeAndValidateDependencies {
             }
 
             graphExporter = new GraphExporter<>(dependencyGraph);
-            graphExporter.export("dependency-graph-final");
+            graphExporter.export("dependency-graph-"
+                    + Properties.EXTRACTION_STRATEGY + "-final");
 
             if(checkForMissing) {
 
@@ -72,7 +72,8 @@ public class ComputeAndValidateDependencies {
                 dependencyGraph = recoverMissedDependencies.computeMissedDependencies();
 
                 graphExporter = new GraphExporter<>(dependencyGraph);
-                graphExporter.export("dependency-graph-initial-recover-missed");
+                graphExporter.export("dependency-graph-"
+                        + Properties.EXTRACTION_STRATEGY + "-initial-recover-missed");
 
                 int iterationId = dependencyRefiner.getIterationId();
                 dependencyRefiner = new DependencyRefiner(recoverMissedDependencies.getExecutionTimes(),
@@ -85,7 +86,8 @@ public class ComputeAndValidateDependencies {
                         .computeExecutionTime(Arrays.asList((System.currentTimeMillis() - startTime))));
 
                 graphExporter = new GraphExporter<>(dependencyGraph);
-                graphExporter.export("dependency-graph-final-recover-missed");
+                graphExporter.export("dependency-graph-" + Properties.EXTRACTION_STRATEGY
+                        + "-final-recover-missed");
             }
 
         } catch (Exception ex) {
@@ -110,11 +112,11 @@ public class ComputeAndValidateDependencies {
         for (String strategy: ExtractionStrategies.getValues()){
             if(strategy.equals(ExtractionStrategies.Strategy.ORIGINAL_ORDER.getStrategyName()) && extractionStrategy.equals(strategy)){
                 return new OriginalOrderDependencyGraphExtractor();
-            } else if(strategy.equals(ExtractionStrategies.Strategy.MOEA.getStrategyName()) && extractionStrategy.equals(strategy)) {
-                return new MoeaDependencyGraphExtraction(config);
+            } else if(strategy.equals(ExtractionStrategies.Strategy.BIOBJECTIVE.getStrategyName()) && extractionStrategy.equals(strategy)) {
+                return new BiobjectiveDependencyGraphExtraction(config);
             } else if(strategy.equals(ExtractionStrategies.Strategy.SUB_USE.getStrategyName()) && extractionStrategy.equals(strategy)) {
                 return new ConstantStringsAnalyzer();
-            }   else if(strategy.equals(ExtractionStrategies.Strategy.COVERAGE.getStrategyName()) && extractionStrategy.equals(strategy)) {
+            }   else if(strategy.equals(ExtractionStrategies.Strategy.COVERAGE_DRIVEN.getStrategyName()) && extractionStrategy.equals(strategy)) {
                 return new CoverageDrivenGraphExtraction(config);
             }
         }

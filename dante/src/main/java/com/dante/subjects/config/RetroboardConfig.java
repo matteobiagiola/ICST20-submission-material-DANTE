@@ -5,10 +5,7 @@ import com.crawljax.core.configuration.Form;
 import com.crawljax.core.configuration.InputSpecification;
 import com.crawljax.core.state.Identification;
 import com.crawljax.forms.FormInput;
-import com.crawljax.stateabstractions.dom.LevenshteinStateVertexFactory;
-import com.crawljax.stateabstractions.visual.imagehashes.AverageImageHashStateVertexFactory;
 import com.crawljax.stateabstractions.visual.imagehashes.DHashStateVertexFactory;
-import com.crawljax.stateabstractions.visual.imagehashes.PerceptualImageHashStateVertexFactory;
 import com.dante.subjects.ApplicationNames;
 import com.dante.subjects.Config;
 import com.dante.suitegenerator.SuiteGeneratorConfig;
@@ -146,7 +143,7 @@ public class RetroboardConfig extends Config {
         DependencyGraphExtractionConfig dependencyGraphExtractionConfig = new DependencyGraphExtractionConfig();
         dependencyGraphExtractionConfig.setParetoFrontSolution(dependencyGraphOptimized);
         // window strategy and one by one strategy produce the same result
-        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("1100000000000000000000000000000000011000000000000000000000001000000000000000000000000000000000000000");
+        dependencyGraphExtractionConfig.setFixedSelectedTestSuite("1100000000000000000000000000000000011000000000000000000000001000000000000000000000000000000000000000");
 
         return dependencyGraphExtractionConfig;
     }

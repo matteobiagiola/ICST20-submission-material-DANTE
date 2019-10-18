@@ -8,8 +8,8 @@ public class ExtractionStrategies {
     public enum Strategy {
         ORIGINAL_ORDER ("original_order"),
         SUB_USE ("sub_use"),
-        COVERAGE ("coverage"),
-        MOEA ("moea");
+        COVERAGE_DRIVEN ("coverage_driven"),
+        BIOBJECTIVE ("biobjective");
 
         private String strategy;
 

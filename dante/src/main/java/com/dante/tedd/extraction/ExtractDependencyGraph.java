@@ -4,7 +4,7 @@ import com.dante.parsing.TestCaseFinder;
 import com.dante.subjects.Config;
 import com.dante.subjects.SetupApp;
 import com.dante.tedd.extraction.coverage_selection.CoverageDrivenGraphExtraction;
-import com.dante.tedd.extraction.moea.MoeaDependencyGraphExtraction;
+import com.dante.tedd.extraction.moea.BiobjectiveDependencyGraphExtraction;
 import com.dante.tedd.extraction.originalorder.OriginalOrderDependencyGraphExtractor;
 import com.dante.tedd.extraction.string.ConstantStringsAnalyzer;
 import com.dante.tedd.graph.GraphEdge;
@@ -34,12 +34,12 @@ public class ExtractDependencyGraph {
         String graphName = "graph";
         if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.ORIGINAL_ORDER.getStrategyName())) {
             graphName += "-original-order";
-        } else if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.MOEA.getStrategyName())) {
-            graphName += "-moea";
+        } else if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.BIOBJECTIVE.getStrategyName())) {
+            graphName += "-biobjective";
         } else if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.SUB_USE.getStrategyName())) {
             graphName += "-string";
-        } else if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.COVERAGE.getStrategyName())) {
-            graphName += "-coverage";
+        } else if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.COVERAGE_DRIVEN.getStrategyName())) {
+            graphName += "-coverage_driven";
         }
 
         graphExporter.export(graphName);
@@ -59,11 +59,11 @@ public class ExtractDependencyGraph {
         for (String strategy: ExtractionStrategies.getValues()){
             if(strategy.equals(ExtractionStrategies.Strategy.ORIGINAL_ORDER.getStrategyName()) && extractionStrategy.equals(strategy)){
                 return new OriginalOrderDependencyGraphExtractor();
-            } else if(strategy.equals(ExtractionStrategies.Strategy.MOEA.getStrategyName()) && extractionStrategy.equals(strategy)) {
-                return new MoeaDependencyGraphExtraction(config);
+            } else if(strategy.equals(ExtractionStrategies.Strategy.BIOBJECTIVE.getStrategyName()) && extractionStrategy.equals(strategy)) {
+                return new BiobjectiveDependencyGraphExtraction(config);
             } else if(strategy.equals(ExtractionStrategies.Strategy.SUB_USE.getStrategyName()) && extractionStrategy.equals(strategy)) {
                 return new ConstantStringsAnalyzer();
-            }else if(strategy.equals(ExtractionStrategies.Strategy.COVERAGE.getStrategyName()) && extractionStrategy.equals(strategy)) {
+            }else if(strategy.equals(ExtractionStrategies.Strategy.COVERAGE_DRIVEN.getStrategyName()) && extractionStrategy.equals(strategy)) {
                 return new CoverageDrivenGraphExtraction(config);
             }
         }

@@ -193,7 +193,7 @@ public class PhoenixConfig extends Config {
         // window strategy
 //        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("11101000101100100000100110000000000011000000000011000");
         // one by one strategy
-        dependencyGraphExtractionConfig.setFixedMinimizedTestSuite("11111111111111100000100110000000000011000000000011000");
+        dependencyGraphExtractionConfig.setFixedSelectedTestSuite("11111111111111100000100110000000000011000000000011000");
 
 
         return dependencyGraphExtractionConfig;
