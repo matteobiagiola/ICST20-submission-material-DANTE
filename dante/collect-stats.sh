@@ -4,7 +4,7 @@ application_name=$1
 main_class=$2
 extraction_strategy=$3
 
-results_folder=~/Desktop/$application_name-validation-$extraction_strategy
+results_folder=$HOME/Desktop/$application_name-validation-$extraction_strategy
 if [[ -d $results_folder ]]; then
     rm -rf $results_folder
 fi

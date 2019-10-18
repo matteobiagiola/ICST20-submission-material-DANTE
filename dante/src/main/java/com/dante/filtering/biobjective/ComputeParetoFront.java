@@ -34,9 +34,9 @@ import java.util.List;
  * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
 
-public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
+public class ComputeParetoFront extends AbstractAlgorithmRunner {
 
-    private final static Logger logger = Logger.getLogger(NSGAIIBinaryRunner.class.getName());
+    private final static Logger logger = Logger.getLogger(ComputeParetoFront.class.getName());
 
     /**
      * @param args Command line arguments.

@@ -39,4 +39,9 @@ public class CovUnit {
     public int hashCode(){
         return Objects.hash(this.scriptName + "-" + this.unit);
     }
+
+    @Override
+    public String toString(){
+        return this.unit + "-" + this.scriptName;
+    }
 }

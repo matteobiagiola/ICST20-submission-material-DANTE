@@ -26,6 +26,15 @@ import java.util.stream.Collectors;
 public class CoverageReportImporter {
 
     private final static Logger logger = Logger.getLogger(CoverageReportImporter.class.getName());
+    private List<String> filesToConsider = new LinkedList<>();
+
+    public CoverageReportImporter() {
+
+    }
+
+    public CoverageReportImporter(List<String> filesToConsider) {
+        this.filesToConsider = new LinkedList<>(filesToConsider);
+    }
 
     public CoverageReport importReport(String coverageReportsDirectoryPath, boolean importSuiteReport) {
 
@@ -185,7 +194,10 @@ public class CoverageReportImporter {
         List<File> result = new LinkedList<>();
         for (File file : files) {
             // file with '-' is suite coverage report
-            if(!file.getName().contains("-"))
+            if(!file.getName().contains("-") && this.filesToConsider.isEmpty())
+                result.add(file);
+            else if(!file.getName().contains("-")
+                    && this.filesToConsider.contains(file.getName().replace(".txt", "")))
                 result.add(file);
         }
 

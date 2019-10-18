@@ -3,6 +3,7 @@ package com.dante.minimization;
 import com.dante.coverage.CoverageReport;
 import com.dante.coverage.CoverageReportImporter;
 import com.dante.parsing.TestCaseFinder;
+import com.dante.tedd.extraction.ExtractionStrategies;
 import com.dante.tedd.graph.GraphEdge;
 import com.dante.tedd.graph.GraphNode;
 import com.dante.tedd.graph.dot.importgraph.GraphImporter;
@@ -10,9 +11,13 @@ import com.dante.utils.Properties;
 import org.apache.log4j.Logger;
 import org.jgrapht.Graph;
 
-class MinimizeSuite {
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    private final static Logger logger = Logger.getLogger(MinimizeSuite.class.getName());
+class MinimizeTestSuite {
+
+    private final static Logger logger = Logger.getLogger(MinimizeTestSuite.class.getName());
 
     public static void main(String[] args) {
 
@@ -22,6 +27,8 @@ class MinimizeSuite {
                 "validated_graph_path");
         Properties.getInstance().checkDirectoryExistence(Properties.COVERAGE_REPORTS_DIRECTORY_PATH,
                 "coverage_reports_directory_path");
+        Properties.getInstance().checkPropertyNotEmpty(Properties.EXTRACTION_STRATEGY,
+                "extraction_strategy");
 
         Properties.tests_order = new TestCaseFinder().getTestCaseOrder();
 
@@ -30,6 +37,10 @@ class MinimizeSuite {
                 graphImporter.importGraph(Properties.VALIDATED_GRAPH_PATH);
 
         CoverageReportImporter coverageReportImporter = new CoverageReportImporter();
+        if(Properties.EXTRACTION_STRATEGY.equals(ExtractionStrategies.Strategy.COVERAGE_DRIVEN.getStrategyName())) {
+            List<String> filesToConsider = dependencyGraph.vertexSet().stream().map(GraphNode::getTestCase).collect(Collectors.toList());
+            coverageReportImporter = new CoverageReportImporter(filesToConsider);
+        }
         CoverageReport coverageReport
                 = coverageReportImporter.importReport(Properties.COVERAGE_REPORTS_DIRECTORY_PATH);
 
