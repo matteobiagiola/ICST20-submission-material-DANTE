@@ -1,9 +1,11 @@
 package com.dante.suitegenerator.atusa.extraction;
 
+import com.dante.suitegenerator.atusa.ModelTestCasesExtractor;
 import com.dante.suitegenerator.atusa.json.model.CrawlResults;
 import com.dante.suitegenerator.atusa.json.model.Edge;
 import com.dante.suitegenerator.atusa.json.model.State;
 import com.dante.utils.Properties;
+import org.apache.log4j.Logger;
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.YenKShortestPath;
 import org.jgrapht.graph.DirectedPseudograph;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 public class CrawlGraph {
     public CrawlResults crawlResults;
     public State startVertex;
+    private final static Logger logger = Logger.getLogger(CrawlGraph.class.getName());
+
     public CrawlGraph(){
 
     }
@@ -70,36 +74,36 @@ public class CrawlGraph {
         if(index == null) throw new IllegalStateException("generatePaths: there must be an index vertex in the crawled graph");
         List<GraphPath<State,Edge>> graphPaths = new LinkedList<>();
 		if(sinks.size() > 0) {
-            System.out.println("Sinks size: " + sinks.size());
+            logger.info("Sinks size: " + sinks.size());
             YenKShortestPath<State,Edge> yenKShortestPath = new YenKShortestPath<>(graph);
             int k = Properties.K_SHORTEST_PATH;
             Set<GraphPath<State,Edge>> graphPathSet = new HashSet<>();
-//            int max = -1;
-//            for (int i = 0; i < 1000; i++) {
-//                for (State sink : sinks) {
-//                    graphPathSet.addAll(yenKShortestPath.getPaths(index, sink, i));
-//                }
-//                int numPaths = graphPathSet.size();
-//                if(numPaths > max) {
-//                    max = numPaths;
-//                    System.out.println("Max paths: " + max + ", k = " + i);
-//                    k = i;
-//                    if(max >= 200 || this.isTransitionCoverageReached(graphPaths, graph.edgeSet())) {
-//                        break;
-//                    }
-//                }
-//            }
-//            graphPaths.clear();
+            int max = -1;
+            for (int i = 0; i < 1000; i++) {
+                for (State sink : sinks) {
+                    graphPathSet.addAll(yenKShortestPath.getPaths(index, sink, i));
+                }
+                int numPaths = graphPathSet.size();
+                if(numPaths > max) {
+                    max = numPaths;
+                    logger.info("Max paths: " + max + ", k = " + i);
+                    k = i;
+                    if(this.isTransitionCoverageReached(graphPaths, graph.edgeSet())) {
+                        break;
+                    }
+                }
+            }
+            graphPaths.clear();
             for (State sink : sinks) {
                 graphPathSet.addAll(yenKShortestPath.getPaths(index, sink, k));
             }
             graphPaths.addAll(graphPathSet);
-//            Properties.K_SHORTEST_PATH = k;
-            System.out.println("KShortestPaths extracted paths size: " + graphPaths.size() + " with k = "
+            Properties.K_SHORTEST_PATH = k;
+            logger.info("KShortestPaths extracted paths size: " + graphPaths.size() + " with k = "
                     + Properties.K_SHORTEST_PATH);
             this.computePotentialTransitionCoverage(graphPaths, graph.edgeSet());
         } else {
-            System.out.println("The graph has no sinks: resort to breadth first search for transition coverage");
+            logger.info("The graph has no sinks: resort to breadth first search for transition coverage");
             GraphIterator<State,Edge> iterator = new BreadthFirstIterator<>(graph, this.startVertex);
             /*
              * The algorithm (Listener) has a bug that manifests when the
@@ -111,7 +115,7 @@ public class CrawlGraph {
             while(iterator.hasNext()){
                 iterator.next();
             }
-            System.out.println("Breadth first extracted paths size: " + crawlPathListener.paths.size());
+            logger.info("Breadth first extracted paths size: " + crawlPathListener.paths.size());
             graphPaths = crawlPathListener.paths.stream().map(crawlWalk -> {
                 GraphPath<State,Edge> graphPath = new GraphWalk<>(graph, crawlWalk.getVertices().get(0),
                         crawlWalk.getVertices().get(crawlWalk.getVertices().size() - 1), crawlWalk.getEdges(),0);
@@ -144,7 +148,7 @@ public class CrawlGraph {
                 result += 1.0;
             }
         }
-        System.out.println("Potential transition coverage reached by those paths: " + (100 * result / edges.size()));
+        logger.info("Potential transition coverage reached by those paths: " + (100 * result / edges.size()));
     }
 
     public ClickableLocator parseEdgeId(Edge edge){

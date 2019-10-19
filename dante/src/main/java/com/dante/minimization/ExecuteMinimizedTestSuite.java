@@ -29,6 +29,8 @@ public class ExecuteMinimizedTestSuite {
 
         Properties.getInstance().checkFileExistence(Properties.TEST_SUITE_PATH,
                 "test_suite_path");
+        Properties.getInstance().checkPropertyNotEmpty(Properties.SOLUTION_BYTE_STRING,
+                "solution_byte_string");
 
         Properties.tests_order = new TestCaseFinder().getTestCaseOrder();
 

@@ -63,7 +63,7 @@ public class JavaProjectGenerator {
                 + (suiteGeneratorConfig.isFiredElementStrategy() ? "Fired" : "Checked")
                 + "K" + Properties.K_SHORTEST_PATH;
         this.testSuiteNameCoverage = this.testSuiteName + "Coverage";
-        this.atusaTestSuiteNameCoverage = this.atusaTestSuiteName + "CoverageK" + Properties.K_SHORTEST_PATH;
+        this.atusaTestSuiteNameCoverage = this.atusaTestSuiteName + "Coverage";
 
     }
 

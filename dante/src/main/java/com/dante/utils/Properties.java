@@ -194,14 +194,17 @@ public class Properties {
     @Parameter(key = "solution_byte_string", group = "suite-minimization", description = "String representing the solution given by the solver as byte string. If byte = 1 the corresponding test, in order, must be in the minimized suite.")
     public static String SOLUTION_BYTE_STRING = "";
 
-    @Parameter(key = "suite_execution_result_byte_string", group = "collect-coverage-reports", description = "String representing the execution of a test suite. If byte = 1 the corresponding test, in order, must be executed for measuring coverage since it did not fail.")
-    public static String SUITE_EXECUTION_RESULT_BYTE_STRING = "";
-
     @Parameter(key = "coverage_driven_test_selection_byte_string", group = "filtering", description = "Byte string solution given by the coverage driven test selection.")
     public static String COVERAGE_DRIVEN_TEST_SELECTION_BYTE_STRING = "";
 
     @Parameter(key = "biobjective_dependency_graph_byte_string", group = "filtering", description = "Byte string representing the filtered dependency graph given by the bi-objective filter.")
     public static String BIOBJECTIVE_DEPENDENCY_GRAPH_BYTE_STRING = "";
+
+    @Parameter(key = "technique", group = "comparison", description = "Name of the technique you want to run tests of. See Techniques class for values.")
+    public static String TECHNIQUE = "";
+
+    @Parameter(key = "suite_execution_result_byte_string", group = "comparison", description = "String representing the execution of a test suite. If byte = 1 the corresponding test, in order, must be executed for measuring coverage since it did not fail.")
+    public static String SUITE_EXECUTION_RESULT_BYTE_STRING = "";
 
 
     private void checkProperties(){

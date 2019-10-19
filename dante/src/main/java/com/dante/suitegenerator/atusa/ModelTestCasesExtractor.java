@@ -137,7 +137,6 @@ public class ModelTestCasesExtractor {
                 builder.append("} \n");
 
                 // if dimeshift replace "/HTML[1]/BODY[1]/DIV[1]/DIV[2]/DIV[3]" and "/HTML[1]/BODY[1]/DIV[1]/DIV[2]/DIV[2]" with "//DIV[@class=\"page_holder\"]"
-                // if phoenix replace "" with By.linkText(\"\");
 
                 if(containsFieldWithEnterClick(inputFieldIdsWithEnterClick, inputFieldLocator)
                         || (Properties.APPLICATION_NAME.equals(ApplicationNames.Name.RETROBOARD.getName())

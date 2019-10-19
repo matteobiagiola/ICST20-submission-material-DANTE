@@ -167,4 +167,7 @@ compileAndRunGeneratedTests $application_name $element_strategy $compile $measur
 compile=false
 measure_coverage=true
 compileAndRunGeneratedTests $application_name $element_strategy $compile $measure_coverage
+# rename coverage reports directory
+test_suite_directory_path="$HOME/workspace/ICST20-submission-material-DANTE/dante/applications/$application_name/testsuite-$application_name"
+mv $test_suite_directory_path/coverage-reports $test_suite_directory_path/all-coverage-reports
 stopContainer $application_name $current_date

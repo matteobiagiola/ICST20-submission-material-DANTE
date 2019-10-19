@@ -187,7 +187,16 @@ setFormTraining false
 setFiredElementStrategy $application_name
 setCrawlingMaxRuntime $crawling_max_runtime
 
+crawl_results_directory="$HOME/workspace/ICST20-submission-material-DANTE/dante/applications/$application_name/localhost"
+if [[ -d "$crawl_results_directory/crawl0" ]]; then
+    # remove crawling directory
+    rm -rf "$crawl_results_directory/crawl0"
+fi
+
 runContainer $application_name $current_date
 main_class_name=CrawlApp
 runJavaMainClass $application_name $main_class_name $crawling_max_runtime
 stopContainer $application_name $current_date
+
+# rename crawling results directory
+mv "$crawl_results_directory/crawl0" "$crawl_results_directory/crawl-with-inputs"

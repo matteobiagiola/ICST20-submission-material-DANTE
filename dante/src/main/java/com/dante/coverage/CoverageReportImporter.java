@@ -87,20 +87,20 @@ public class CoverageReportImporter {
             int totCovUnit = mapScriptTotCovUnit.get(scriptName);
             Set<CovUnit> covUnits = mapScriptCovUnits.get(scriptName);
 
-            logger.info("Script name: " + scriptName);
-            logger.info("covUnits size: " + covUnits.size());
-            logger.info("Tot cov unit: " + totCovUnit);
+            logger.debug("Script name: " + scriptName);
+            logger.debug("covUnits size: " + covUnits.size());
+            logger.debug("Tot cov unit: " + totCovUnit);
             double percentageCovered = 0.0;
             if(covUnits.size() > 0) {
                 percentageCovered = NumberUtils
                         .round(((double) covUnits.size() / totCovUnit), 4);
-                System.out.println(scriptName + "<>" + totCovUnit + "<>"
+                logger.debug(scriptName + "<>" + totCovUnit + "<>"
                         + NumberUtils.round((percentageCovered * 100), 4) + "%");
             }
             sumPercentageCoverage += percentageCovered;
         }
         double totPercentageCovered = NumberUtils.round(((sumPercentageCoverage
-                / mapScriptCovUnits.keySet().size()) * 100), 2);
+                / mapScriptCovUnits.keySet().size()) * 100), 4);
 
         if(importSuiteReport) {
             List<CoverageReportLine> coverageReportLines = this.getCoverageReportLines(coverageFileSuite);
