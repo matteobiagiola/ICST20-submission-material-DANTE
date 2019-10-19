@@ -211,7 +211,7 @@ public class Crawler {
 	 */
 	public void execute(StateVertex crawlTask) {
 		LOG.debug("Resetting the crawler and going to state {}", crawlTask.getName());
-		System.out.println("Resetting the crawler and going to state " + crawlTask.getName());
+//		System.out.println("Resetting the crawler and going to state " + crawlTask.getName());
 		if(this.applicationName.equalsIgnoreCase("ecommerce")) {
 			resetEcommerce();
 		} else {

@@ -69,8 +69,10 @@ public class CrawlSession {
 	 * @param crawlPath the eventable list
 	 */
 	public void addCrawlPath(List<Eventable> crawlPath) {
-		System.out.println("Adding crawl path: " + crawlPath);
-		this.crawlPaths.add(crawlPath);
+		if(crawlPath != null && !crawlPath.isEmpty()) {
+			System.out.println("Adding crawl path: " + crawlPath);
+			this.crawlPaths.add(crawlPath);
+		}
 	}
 
 	/**

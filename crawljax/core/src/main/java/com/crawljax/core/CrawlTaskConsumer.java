@@ -76,7 +76,7 @@ public class CrawlTaskConsumer implements Callable<Void> {
 
 	private void handleTask(StateVertex state) {
 		LOG.debug("Going to handle tasks in {}", state);
-		System.out.println("Going to handle tasks in " + state);
+//		System.out.println("Going to handle tasks in " + state);
 		crawler.execute(state);
 		LOG.debug("Task executed. Returning to queue polling");
 		System.out.println("Task executed. Returning to queue polling");
