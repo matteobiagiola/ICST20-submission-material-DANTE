@@ -291,5 +291,5 @@ if [[ $status == 50 && $collect_stats == "true" ]]; then
         new_main_class_name=$new_main_class_name"biobjective"
     fi
     echo New main class name: $new_main_class_name
-    run-tedd.sh $new_main_class_name $application_name $start_container $collect_stats
+    ./run-tedd.sh $new_main_class_name $application_name $start_container $collect_stats
 fi
