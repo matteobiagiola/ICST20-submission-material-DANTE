@@ -65,8 +65,8 @@ function runJavaMainClass() {
     local timeout=$(($crawling_max_runtime_local * 60))
     local sleep_time=0
     while [ $sleep_time -le $timeout ]; do
-      sleep 60
-      sleep_time=$(($sleep_time + 60))
+      sleep 30
+      sleep_time=$(($sleep_time + 30))
       echo "Sleep time: $sleep_time"
       if ps -p $pid > /dev/null; then
         echo Java process with pid $pid still active

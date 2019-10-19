@@ -174,7 +174,7 @@ public class Crawler {
 		crawlpath = new CrawlPath();
 		context.setCrawlPath(crawlpath);
 		browser.handlePopups();
-		System.out.println("Reset ecommerce by clicking on the home page button");
+//		System.out.println("Reset ecommerce by clicking on the home page button");
 		browser.getWebDriver().findElement(By.xpath("//a[@id=\"home\"]")).click();
 		FSUtils.writeLineOnFile("driver.findElement(By.xpath(\"//a[@id=\\\"home\\\"]\")).click();");
 		FSUtils.writeLineOnFile("Thread.sleep(" + this.crawlRules.getWaitAfterEvent() + ");");
