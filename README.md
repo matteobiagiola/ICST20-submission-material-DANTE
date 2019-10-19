@@ -1,19 +1,53 @@
 # ICST20-submission-material-DANTE
 Submission material for ICST 2020 paper "Dependency-Aware Web Test Generation"
 
-This repository contains the tool implementing the approach described in an ICST20 submission, together with the subjects used in the evaluation.
+This repository contains the tool implementing the approach described in an ICST20 submission, together with the subjects used in the evaluation. DANTE has been tested in MacOS Mojave 10.14.6 and Ubuntu (18.04 LTS).
 
 ## 1. Automatic Setup
-A virtual machine running Ubuntu server 18.04 will be provided soon.
+A virtual machine running Ubuntu 18.04 LTS is available for download at ... . The virtual machine contains this repository and all the dependencies needed to run DANTE on the test suite subjects. 
+
+The virtual machine was created with VirtualBox and was exported in the `.ova` format, a platform-independent distribution format for virtual machines. It can be imported by any virtualization software although it was tested only on VirtualBox and VMWare Fusion. Instructions on how to import an `.ova` format virtual machine in VirtualBox and VMWare Fusion are listed below:
+
+- VirtualBox: https://www.techjunkie.com/ova-virtualbox/
+- VMWare Fusion: https://pubs.vmware.com/fusion-5/index.jsp?topic=%2Fcom.vmware.fusion.help.doc%2FGUID-275EF202-CF74-43BF-A9E9-351488E16030.html
+
+The minimum amount of RAM to assign to the virtual machine is `4GB`.
+
+Login credentials:
+- username: `icst20-dante`
+- password: `icst20-dante`
+
+If the automatic setup worked, you can skip to [the run experiments section](#2-run-the-experiments---crawling-after-the-setup). Otherwise procede to the [manual setup section](#11-manual-setup).
 
 #### 1.1 Manual Setup
 Steps to configure the environment will be provided soon.
 
 ## 2. Run the experiments (Crawling - after the setup)
-Coming soon.
+The script to run the crawling is [run-crawling.sh](https://github.com/anon-icst2020/ICST20-submission-material-DANTE/blob/master/dante/run-crawling.sh). 
+
+The first argument is the `application_name`. The available values are:
+- `phoenix|dimeshift|splittypie|retroboard|petclinic|ecommerce`
+
+The second argument is `headless` which determines if the browser starts headless or with the GUI. The available values are:
+- `true|false`
+
+The third argument is a number, `crawling_max_runtime` which determines a timeout for the crawler.
+
+We are going to choose the `ecommerce` application to show how the tool works, since the single steps that come later are much faster to execute than with the subject systems we used in the paper. The results in the paper can be replicated but it simply takes longer.
+
+The following commands in this README assume you are in the `~/workspace/ICST20-submission-material-DANTE/dante` folder, assuming that `~` indicates the path to the home directory in your system:
+
+- `./run-crawling.sh ecommerce false 5` (the crawler terminates the exploration in ~3 min)
+
+After the crawling the folder `dante/applications/ecommerce/localhost/crawl-with-inputs` is created, which contains the results of the crawling. In the folder `dante/applications/ecommerce` there is a file called `selenium-actions-ecommerce-fired.txt` which lists the test cases created by the crawler while it was exploring the application. The crawling generates around 18 tests.
 
 ## 3. Run the experiments (Create java projects from crawling - after the setup and step 2)
-Coming soon.
+In this step the `dante/applications/ecommerce/seletion-actions-ecommerce-fired.txt` is used to generate the test suite. The script to create the test suite and run it is [generate-java-project-from-crawling.sh](https://github.com/anon-icst2020/ICST20-submission-material-DANTE/blob/master/dante/generate-java-project-from-crawling.sh). 
+
+The first argument is `application_name` and the second argument is `headless`. Following with the `ecommerce` example the command to run is:
+- `./generate-java-project-from-crawling.sh ecommerce false` 
+
+The command generates the java project with the test suite and runs it. It also collects the coverage of all tests.
 
 ## 4. Run the experiments (Fix flakiness in created JUnit test suites - after the setup and step 3)
 Coming soon.
