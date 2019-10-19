@@ -132,7 +132,7 @@ public class Crawler {
 	 */
 	public void reset() {
 		CrawlSession session = context.getSession();
-		if (crawlpath != null) {
+		if (crawlpath != null && !crawlpath.isEmpty()) {
 			browser.crawlPathEnd(this.crawlPathSeparator);
 			session.addCrawlPath(crawlpath);
 		}
@@ -161,7 +161,7 @@ public class Crawler {
 	 * */
 	public void resetEcommerce() {
 		CrawlSession session = context.getSession();
-		if (crawlpath != null) {
+		if (crawlpath != null && !crawlpath.isEmpty()) {
 			browser.crawlPathEnd(this.crawlPathSeparator);
 			session.addCrawlPath(crawlpath);
 		}
