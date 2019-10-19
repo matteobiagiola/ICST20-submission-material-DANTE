@@ -17,22 +17,16 @@ public class CrawlingActionsParser {
         try (BufferedReader br = new BufferedReader(new FileReader(driverActionsFile))) {
             String line;
             List<String> testStatements = new LinkedList<>();
-            int statementCounter = 0;
             int testCaseCounter = 0;
             while ((line = br.readLine()) != null) {
-                if(line.equals(Properties.CRAWL_PATH_SEPARATOR)) {
+                if(line.equals(Properties.CRAWL_PATH_SEPARATOR) && !testStatements.isEmpty()) {
                     TestCase testCase = new TestCase(testStatements, testCaseCounter);
                     result.add(testCase);
                     testStatements = new LinkedList<>();
                     testCaseCounter++;
-                } else {
+                } else if(!line.equals(Properties.CRAWL_PATH_SEPARATOR)) {
                     testStatements.add(line);
                 }
-                statementCounter++;
-            }
-            if(testCaseCounter != 0) {
-                TestCase testCase = new TestCase(testStatements, testCaseCounter);
-                result.add(testCase);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
