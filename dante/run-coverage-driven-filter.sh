@@ -125,7 +125,7 @@ function setCoverageReportDirectoryPath() {
 	if [[ $os == "Darwin" ]]; then
         sed -i "" "s%coverage_reports_directory_path=.*%coverage_reports_directory_path=$coverage_reports_directory_path_local%g" $properties_file
     else
-        sed -i "s%coverage_reports_directory_path=.*%coverage_reports_directory_path=$coverage_reports_directory_path%g" $properties_file
+        sed -i "s%coverage_reports_directory_path=.*%coverage_reports_directory_path=$coverage_reports_directory_path_local%g" $properties_file
     fi
 }
 
