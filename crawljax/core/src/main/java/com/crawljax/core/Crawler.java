@@ -655,7 +655,7 @@ public class Crawler {
 	}
 
 	private void interruptThread() {
-		if (crawlpath != null) {
+		if (crawlpath != null && !crawlpath.isEmpty()) {
 			context.getSession().addCrawlPath(crawlpath);
 		}
 		Thread.currentThread().interrupt();
