@@ -15,7 +15,7 @@ The minimum amount of RAM to assign to the virtual machine is `4GB`.
 
 Login credentials:
 - username: `icst20-dante`
-- password: `icst20-dante`
+- password: `icst20dante`
 
 If the automatic setup worked, you can skip to [the run experiments section](#2-run-the-experiments-crawling---after-the-setup). Otherwise procede to the [manual setup section](#11-manual-setup).
 
