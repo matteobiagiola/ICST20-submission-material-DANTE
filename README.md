@@ -4,7 +4,7 @@ Submission material for ICST 2020 paper "Dependency-Aware Web Test Generation"
 This repository contains the tool implementing the approach described in an ICST20 submission, together with the subjects used in the evaluation. DANTE has been tested in MacOS Mojave 10.14.6 and Ubuntu (18.04 LTS).
 
 ## 1. Automatic Setup
-A virtual machine running Ubuntu 18.04 LTS is available for download [here](https://drive.google.com/file/d/1PAbpgt1Atx6GpTwRZRM0heNLs8IDfbwo/view?usp=sharing) . The virtual machine contains this repository and all the dependencies needed to run DANTE on the test suite subjects. 
+A virtual machine running Ubuntu 18.04 LTS is available for download [here](https://drive.switch.ch/index.php/s/w307bjzHz3tmwXm/download) . The virtual machine contains this repository and all the dependencies needed to run DANTE on the test suite subjects. 
 
 The virtual machine was created with VirtualBox and was exported in the `.ova` format, a platform-independent distribution format for virtual machines. It can be imported by any virtualization software although it was tested only on VirtualBox and VMWare Fusion. Instructions on how to import an `.ova` format virtual machine in VirtualBox and VMWare Fusion are listed below:
 
