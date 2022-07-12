@@ -47,9 +47,9 @@ The third argument is a number, `crawling_max_runtime` which determines a timeou
 
 We are going to choose the `ecommerce` application to show how the tool works, since the single steps that come later are much faster to execute than with the subject systems we used in the paper. The results in the paper can be replicated but it simply takes longer:
 
-- the output of the crawler applied to the subject systems used in the paper are available [here](https://drive.google.com/file/d/1C3EliKb7klNJEIWOpHi9SJG_vFddL_0I/view?usp=sharing);
+- the output of the crawler applied to the subject systems will be available soon;
 
-- the coverage reports for the subject systems used in the paper are available [here](https://drive.google.com/file/d/1G4AC4PTc21j5XzSpY2Bi-LxDnIkzwuys/view?usp=sharing).
+- the coverage reports for the subject systems used in the paper will be available soon;
 
 The following commands in this README assume you are in the `~/workspace/ICST20-submission-material-DANTE/dante` folder, assuming that `~` indicates the path to the home directory in your system:
 
@@ -61,6 +61,7 @@ After crawling the folder `dante/applications/ecommerce/localhost/crawl-with-inp
 In this step the `dante/applications/ecommerce/seletion-actions-ecommerce-fired.txt` is used to generate the test suite. The script to create the test suite and run it is [generate-java-project-from-crawling.sh](https://github.com/matteobiagiola/ICST20-submission-material-DANTE/blob/master/dante/generate-java-project-from-crawling.sh). 
 
 The first argument is `application_name` and the second argument is `headless`. Following with the `ecommerce` example the command to run is:
+
 - `./generate-java-project-from-crawling.sh ecommerce false` 
 
 The command generates the java project with the test suite and runs it. It also collects the coverage of all tests.
