@@ -1,0 +1,7 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Tue Apr 16 20:26:49 CEST 2019
+http\://myserver/repo/.error=Could not transfer artifact com.atlassian.pom\:public-pom\:pom\:3.0.84 from/to my-internal-site (http\://myserver/repo)\: myserver
+https\://repo.maven.apache.org/maven2/.lastUpdated=1555439209018
+@default-my-internal-site-http\://myserver/repo/.lastUpdated=1555163314691
+https\://maven.atlassian.com/content/repositories/atlassian-public/.lastUpdated=1555163347414
+https\://repo.maven.apache.org/maven2/.error=
