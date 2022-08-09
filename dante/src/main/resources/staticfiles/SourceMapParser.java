@@ -34,9 +34,6 @@ public class SourceMapParser {
                         " parsing the sourcemap file " + sourceMapUrl);
             String[] srcCodeFilesToExclude = Properties.getInstance().getProperty("src_code_files_to_exclude").split(":");
             this.srcFilesToExcludeCodeCoverage = Arrays.asList(srcCodeFilesToExclude);
-            if(this.srcFilesToExcludeCodeCoverage.size() == 1 && this.srcFilesToExcludeCodeCoverage.get(0).isEmpty()) {
-                this.srcFilesToExcludeCodeCoverage.remove(0);
-            }
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
