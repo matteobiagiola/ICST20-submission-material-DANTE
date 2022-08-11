@@ -2,12 +2,14 @@ package com.dante.crawling;
 
 import com.crawljax.core.CrawljaxRunner;
 import com.crawljax.core.configuration.CrawljaxConfiguration.CrawljaxConfigurationBuilder;
+import com.crawljax.stateabstractions.embedding.Word2VecEmbeddingStateVertexFactory;
 import com.dante.subjects.Config;
 import com.dante.subjects.SetupApp;
 import com.dante.utils.Properties;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public final class CrawlApp {
 
@@ -28,6 +30,8 @@ public final class CrawlApp {
 
 		Config config = SetupApp.getConfig();
 		CrawljaxConfigurationBuilder builder = config.getCrawljaxConfig();
+//      builder.setStateVertexFactory(new RTEDStateVertexFactory());
+		builder.setStateVertexFactory(new Word2VecEmbeddingStateVertexFactory());
 
 		CrawljaxRunner crawljax = new CrawljaxRunner(builder.build());
 
