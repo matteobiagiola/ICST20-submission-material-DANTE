@@ -1,7 +1,7 @@
 package com.crawljax.stateabstractions.embedding;
 
 import com.crawljax.core.state.StateVertexImpl;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class Word2VecEmbeddingStateVertexImpl extends StateVertexImpl {
     private String classifierURI;
@@ -53,16 +55,18 @@ public class Word2VecEmbeddingStateVertexImpl extends StateVertexImpl {
 
             // POST to pass params to python function
             connection.setRequestMethod("POST");
-
             connection.setRequestProperty("Content-Type", "application/json; utf-8");
             connection.setDoOutput(true);
 
-            JSONObject jo = new JSONObject();
-            jo.put("dom1", this_dom);
-            jo.put("dom2", that_dom);
+            Gson gson = new Gson();
+            Dictionary<String, String> dict = new Hashtable<>();
+            //adding values in the dictionary
+            dict.put("dom1", this_dom);
+            dict.put("dom2", that_dom);
+            String jsonStr = gson.toJson(dict);
 
             try (OutputStream os = connection.getOutputStream()) {
-                byte[] input = jo.toString().getBytes("utf-8");
+                byte[] input = jsonStr.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
 
