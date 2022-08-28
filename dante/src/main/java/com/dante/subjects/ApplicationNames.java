@@ -8,34 +8,36 @@ public class ApplicationNames {
 
     public enum Name {
 
-        ECOMMERCE ("ecommerce"),
-        PETCLINIC ("petclinic"),
-        DIMESHIFT ("dimeshift"),
-        SPLITTYPIE ("splittypie"),
-        RETROBOARD ("retroboard"),
-        PHOENIX ("phoenix"),
-        PAGEKIT ("pagekit");
+        ECOMMERCE("ecommerce"),
+        PETCLINIC("petclinic"),
+        DIMESHIFT("dimeshift"),
+        SPLITTYPIE("splittypie"),
+        RETROBOARD("retroboard"),
+        PHOENIX("phoenix"),
+        PAGEKIT("pagekit"),
+
+        ADDRESSBOOK("addressbook");
 
         private String name;
 
-        Name(String name){
+        Name(String name) {
             this.name = name;
         }
 
-        public String getName(){
+        public String getName() {
             return this.name;
         }
 
     }
 
-    public static boolean isApplicationName(String name){
+    public static boolean isApplicationName(String name) {
         return Arrays.stream(Name.values())
                 .map(Name::getName)
                 .collect(Collectors.toList())
                 .contains(name);
     }
 
-    public static List<String> getValues(){
+    public static List<String> getValues() {
         return Arrays.stream(Name.values())
                 .map(Name::getName)
                 .collect(Collectors.toList());
