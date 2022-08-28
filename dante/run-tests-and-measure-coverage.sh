@@ -33,7 +33,7 @@ function checkExtractionStrategy(){
 function checkApplicationName(){
 	local application_name_local=$1
 	if [[ $application_name_local != "petclinic" && $application_name_local != "splittypie" && $application_name_local != "retroboard" \
-		&& $application_name_local != "phoenix" && $application_name_local != "dimeshift" && $application_name_local != "ecommerce" ]]; then
+		&& $application_name_local != "phoenix" && $application_name_local != "dimeshift" && $application_name_local != "ecommerce" && $application_name_local != "pagekit" ]]; then
 		echo Unknown application name: $application_name_local
 		exit 1
 	fi
@@ -87,7 +87,8 @@ function setElementStrategy() {
     if [[ $application_name_local == "petclinic" || \
         $application_name_local == "retroboard" || \
          $application_name_local == "dimeshift" || \
-         $application_name_local == "ecommerce" ]]; then
+         $application_name_local == "ecommerce" || \
+         $application_name_local == "pagekit" ]]; then
         element_strategy=fired
     elif [[ $application_name_local == "phoenix" || \
         $application_name_local == "splittypie" ]]; then

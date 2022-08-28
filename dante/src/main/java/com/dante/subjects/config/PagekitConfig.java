@@ -132,7 +132,8 @@ public class PagekitConfig extends Config {
         FormInput passwordInput = loginForm.inputField(FormInput.InputType.PASSWORD,
                 new Identification(Identification.How.name, "credentials[password]"));
         passwordInput.inputValues("asdfghjkl123");
-        inputSpecification.setValuesInForm(loginForm).beforeClickElement("button").withText("Login");
+        inputSpecification.setValuesInForm(loginForm).beforeClickElement("button")
+                .underXPath("(//button[1])[1]");
 
         Form editUserForm = new Form();
         FormInput usernameEditForm = editUserForm.inputField(FormInput.InputType.TEXT,
@@ -278,9 +279,15 @@ public class PagekitConfig extends Config {
     @Override
     public SuiteGeneratorConfig getSuiteGeneratorConfig() {
 
-        // TODO
+        SuiteGeneratorConfig suiteGeneratorConfig = this.testSuiteGeneratorCommonConfig(url, waitTimeAfterReload);
 
-        return this.testSuiteGeneratorCommonConfig(url, waitTimeAfterReload);
+        List<String> scriptNamesToExclude = new ArrayList<>();
+        scriptNamesToExclude.add("jquery");
+        scriptNamesToExclude.add("vue");
+        suiteGeneratorConfig.setScriptNamesToExclude(scriptNamesToExclude);
+        suiteGeneratorConfig.setFiredElementStrategy(true);
+
+        return suiteGeneratorConfig;
     }
 
     @Override
