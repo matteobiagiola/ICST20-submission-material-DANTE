@@ -89,7 +89,7 @@
         <!-- OpenCV -->
         <dependency>
             <groupId>org.bytedeco.javacpp-presets</groupId>
-            <artifactId>opencv-platform</artifactId>
+            <artifactId>opencv</artifactId>
             <version>3.4.3-1.4.3</version>
         </dependency>
 
