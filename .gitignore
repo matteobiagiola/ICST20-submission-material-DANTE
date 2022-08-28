@@ -42,3 +42,7 @@ out/
 .DS_Store
 dante/applications/
 
+crawljax/administrator.csv
+crawljax/administrator.doc
+crawljax/administrator.xml
+administrator.csv
